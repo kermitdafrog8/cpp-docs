@@ -1,25 +1,24 @@
 ---
-description: "Learn more about: DLLs and Microsoft C++ run-time library behavior"
-title: "DLLs and Visual C++ run-time library behavior"
+description: "Learn more about: DLLs and Microsoft C++ runtime library behavior"
+title: "DLLs and Visual C++ runtime library behavior"
 ms.date: "08/19/2019"
 f1_keywords: ["_DllMainCRTStartup", "CRT_INIT"]
 helpviewer_keywords: ["DLLs [C++], entry point function", "process detach [C++]", "process attach [C++]", "DLLs [C++], run-time library behavior", "DllMain function", "_CRT_INIT macro", "_DllMainCRTStartup method", "run-time [C++], DLL startup sequence", "DLLs [C++], startup sequence"]
-ms.assetid: e06f24ab-6ca5-44ef-9857-aed0c6f049f2
 ---
-# DLLs and Visual C++ run-time library behavior
+# DLLs and Visual C++ runtime library behavior
 
-When you build a Dynamic-link Library (DLL) by using Visual Studio, by default, the linker includes the Visual C++ run-time library (VCRuntime). The VCRuntime contains code required to initialize and terminate a C/C++ executable. When linked into a DLL, the VCRuntime code provides an internal DLL entry-point function called `_DllMainCRTStartup` that handles Windows OS messages to the DLL to attach to or detach from a process or thread. The `_DllMainCRTStartup` function performs essential tasks such as stack buffer security set up, C run-time library (CRT) initialization and termination, and calls to constructors and destructors for static and global objects. `_DllMainCRTStartup` also calls hook functions for other libraries such as WinRT, MFC, and ATL to perform their own initialization and termination. Without this initialization, the CRT and other libraries, as well as your static variables, would be left in an uninitialized state. The same VCRuntime internal initialization and termination routines are called whether your DLL uses a statically linked CRT or a dynamically linked CRT DLL.
+When you build a Dynamic-link Library (DLL) by using Visual Studio, by default, the linker includes the Visual C++ runtime library (VCRuntime). The VCRuntime contains code required to initialize and terminate a C/C++ executable. When linked into a DLL, the VCRuntime code provides an internal DLL entry-point function called `_DllMainCRTStartup` that handles Windows OS messages to the DLL to attach to or detach from a process or thread. The `_DllMainCRTStartup` function performs essential tasks such as stack buffer security set up, C runtime library (CRT) initialization and termination, and calls to constructors and destructors for static and global objects. `_DllMainCRTStartup` also calls hook functions for other libraries such as WinRT, MFC, and ATL to perform their own initialization and termination. Without this initialization, the CRT and other libraries, as well as your static variables, would be left in an uninitialized state. The same VCRuntime internal initialization and termination routines are called whether your DLL uses a statically linked CRT or a dynamically linked CRT DLL.
 
 ## Default DLL entry point _DllMainCRTStartup
 
 In Windows, all DLLs can contain an optional entry-point function, usually called `DllMain`, that is called for both initialization and termination. This gives you an opportunity to allocate or release additional resources as needed. Windows calls the entry-point function in four situations: process attach, process detach, thread attach, and thread detach. When a DLL is loaded into a process address space, either when an application that uses it is loaded, or when the application requests the DLL at runtime, the operating system creates a separate copy of the DLL data. This is called *process attach*. *Thread attach* occurs when the process the DLL is loaded in creates a new thread. *Thread detach* occurs when the thread terminates, and *process detach* is when the DLL is no longer required and is released by an application. The operating system makes a separate call to the DLL entry point for each of these events, passing a *reason* argument for each event type. For example, the OS sends `DLL_PROCESS_ATTACH` as the *reason* argument to signal process attach.
 
-The VCRuntime library provides an entry-point function called `_DllMainCRTStartup` to handle default initialization and termination operations. On process attach, the `_DllMainCRTStartup` function sets up buffer security checks, initializes the CRT and other libraries, initializes run-time type information, initializes and calls constructors for static and non-local data, initializes thread-local storage, increments an internal static counter for each attach, and then calls a user- or library-supplied `DllMain`. On process detach, the function goes through these steps in reverse. It calls `DllMain`, decrements the internal counter, calls destructors, calls CRT termination functions and registered `atexit` functions, and notifies any other libraries of termination. When the attachment counter goes to zero, the function returns `FALSE` to indicate to Windows that the DLL can be unloaded. The `_DllMainCRTStartup` function is also called during thread attach and thread detach. In these cases, the VCRuntime code does no additional initialization or termination on its own, and just calls `DllMain` to pass the message along. If `DllMain` returns `FALSE` from process attach, signaling failure, `_DllMainCRTStartup` calls `DllMain` again and passes `DLL_PROCESS_DETACH` as the *reason* argument, then goes through the rest of the termination process.
+The VCRuntime library provides an entry-point function called `_DllMainCRTStartup` to handle default initialization and termination operations. On process attach, the `_DllMainCRTStartup` function sets up buffer security checks, initializes the CRT and other libraries, initializes runtime type information, initializes and calls constructors for static and non-local data, initializes thread-local storage, increments an internal static counter for each attach, and then calls a user- or library-supplied `DllMain`. On process detach, the function goes through these steps in reverse. It calls `DllMain`, decrements the internal counter, calls destructors, calls CRT termination functions and registered `atexit` functions, and notifies any other libraries of termination. When the attachment counter goes to zero, the function returns `FALSE` to indicate to Windows that the DLL can be unloaded. The `_DllMainCRTStartup` function is also called during thread attach and thread detach. In these cases, the VCRuntime code does no additional initialization or termination on its own, and just calls `DllMain` to pass the message along. If `DllMain` returns `FALSE` from process attach, signaling failure, `_DllMainCRTStartup` calls `DllMain` again and passes `DLL_PROCESS_DETACH` as the *reason* argument, then goes through the rest of the termination process.
 
-When building DLLs in Visual Studio, the default entry point  `_DllMainCRTStartup` supplied by VCRuntime is linked in automatically. You do not need to specify an entry-point function for your DLL by using the [/ENTRY (Entry point symbol)](reference/entry-entry-point-symbol.md) linker option.
+When building DLLs in Visual Studio, the default entry point  `_DllMainCRTStartup` supplied by VCRuntime is linked in automatically. You do not need to specify an entry-point function for your DLL by using the [`/ENTRY` (Entry point symbol)](reference`/ENTRY`-entry-point-symbol.md) linker option.
 
 > [!NOTE]
-> While it is possible to specify another entry-point function for a DLL by using the /ENTRY: linker option, we do not recommend it, because your entry-point function would have to duplicate everything that `_DllMainCRTStartup` does, in the same order. The VCRuntime provides functions that allow you to duplicate its behavior. For example, you can call [__security_init_cookie](../c-runtime-library/reference/security-init-cookie.md) immediately on process attach to support the [/GS (Buffer security check)](reference/gs-buffer-security-check.md) buffer checking option. You can call the `_CRT_INIT` function, passing the same parameters as the entry point function, to perform the rest of the DLL initialization or termination functions.
+> While it is possible to specify another entry-point function for a DLL by using the `/ENTRY`: linker option, we do not recommend it, because your entry-point function would have to duplicate everything that `_DllMainCRTStartup` does, in the same order. The VCRuntime provides functions that allow you to duplicate its behavior. For example, you can call [__security_init_cookie](../c-runtime-library/reference/security-init-cookie.md) immediately on process attach to support the [/GS (Buffer security check)](reference/gs-buffer-security-check.md) buffer checking option. You can call the `_CRT_INIT` function, passing the same parameters as the entry point function, to perform the rest of the DLL initialization or termination functions.
 
 <a name="initializing-a-dll"></a>
 
@@ -82,7 +81,66 @@ extern "C" BOOL WINAPI DllMain (
 ```
 
 > [!NOTE]
-> Older Windows SDK documentation says that the actual name of the DLL entry-point function must be specified on the linker command-line with the /ENTRY option. With Visual Studio, you do not need to use the /ENTRY option if the name of your entry-point function is `DllMain`. In fact, if you use the /ENTRY option and name your entry-point function something other than `DllMain`, the CRT does not get initialized properly unless your entry-point function makes the same initialization calls that `_DllMainCRTStartup` makes.
+> Older Windows SDK documentation says that the actual name of the DLL entry-point function must be specified on the linker command-line with the `/ENTRY` option. With Visual Studio, you do not need to use the `/ENTRY` option if the name of your entry-point function is `DllMain`. In fact, if you use the `/ENTRY` option and name your entry-point function something other than `DllMain`, the CRT does not get initialized properly unless your entry-point function makes the same initialization calls that `_DllMainCRTStartup` makes.
+
+### Manual CRT initialization with `_CRT_INIT`
+
+When building a DLL that uses any of the C runtime libraries, in order to ensure that the CRT is properly initialized, either:
+
+1. The initialization function must be named `DllMain()` and the entry point must be specified with the linker option `-entry:_DllMainCRTStartup@12`, or
+1. The DLL's entry point must explicitly call `_CRT_INIT()` on process attach and process detach.
+
+This permits the C runtime libraries to properly allocate and initialize C runtime data when a process or thread is attaching to the DLL, to properly clean up C runtime data when a process is detaching from the DLL, and for global C++ objects in the DLL to be properly constructed and destructed.
+
+The Win32 SDK samples all use the first method. Refer to the Win32 Programmer's Reference for `DllEntryPoint()` and the Visual C++ documentation for `DllMain()`. Note that `DllMainCRTStartup()` calls `_CRT_INIT()` and `_CRT_INIT()` will call your application's `DllMain()`, if it exists.
+
+If you wish to use the second method and call the CRT initialization code yourself, instead of using `DllMainCRTStartup()` and `DllMain()`, there are two techniques:
+
+1. If there is no entry function that performs initialization code, specify `_CRT_INIT()` as the entry point of the DLL. Assuming that you've included `NTWIN32.MAK`, which defines `DLLENTRY` as `@12`, add the option to the DLL's link line: `-entry:_CRT_INIT$(DLLENTRY)`.
+1. If you do have your own DLL entry point, do the following in the entry point:
+
+   a. Use this prototype for `_CRT_INIT()`: `BOOL WINAPI _CRT_INIT(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved);`
+   
+   For information on `_CRT_INIT()` return values, see the documentation for `DllEntryPoint`; the same values are returned.
+   
+   b. On `DLL_PROCESS_ATTACH` and `DLL_THREAD_ATTACH`, call `_CRT_INIT()` first, before any C runtime functions are called or any floating-point operations are performed.
+   
+   c. Call your own process/thread initialization/termination code.
+   
+   d. On `DLL_PROCESS_DETACH` and `DLL_THREAD_DETACH`, call `_CRT_INIT()` last, after all C runtime functions have been called and all floating-point operations are completed.
+
+Be sure to pass on to `_CRT_INIT()` all of the parameters of the entry point; `_CRT_INIT()` expects those parameters, so things may not work reliably if they are omitted (in particular, `fdwReason` is required to determine whether process initialization or termination is needed).
+
+Below is a skeleton sample entry point function that shows when and how to make these calls to `_CRT_INIT()` in the DLL entry point:
+
+```cpp
+BOOL WINAPI DllEntryPoint(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)
+{
+    if (fdwReason == DLL_PROCESS_ATTACH || fdwReason == DLL_THREAD_ATTACH)
+        if (!_CRT_INIT(hinstDLL, fdwReason, lpReserved))
+            return(FALSE);
+
+    if (fdwReason == DLL_PROCESS_DETACH || fdwReason == DLL_THREAD_DETACH)
+        if (!_CRT_INIT(hinstDLL, fdwReason, lpReserved))
+            return(FALSE);
+
+    return(TRUE);
+}
+```
+
+> [!NOTE]
+> This is not necessary if you are using `DllMain()` and `-entry:_DllMainCRTStartup@12`.
+
+### Using NTWIN32.MAK to simplify the build process
+
+There are macros defined in `NTWIN32.MAK` that can be used to simplify your makefiles and to ensure that they are properly built to avoid conflicts. For this reason, Microsoft highly recommends using `NTWIN32.MAK `and its macros.
+
+For compilation, use: `$(cvarsdll)` for apps/DLLs using CRT in a DLL.
+
+For linking, use one of the following:
+
+- `$(conlibsdll)` for console apps/DLLs using CRT in a DLL
+- `$(guilibsdll)` for GUI apps using CRT in a DLL
 
 <a name="initializing-regular-dlls"></a>
 
@@ -145,7 +203,7 @@ Creating a new `CDynLinkLibrary` object during initialization allows the MFC ext
 
 If you are going to use your MFC extension DLL from one or more regular MFC DLLs, you must export an initialization function that creates a `CDynLinkLibrary` object. That function must be called from each of the regular MFC DLLs that use the MFC extension DLL. An appropriate place to call this initialization function is in the `InitInstance` member function of the regular MFC DLL's `CWinApp`-derived object before using any of the MFC extension DLL's exported classes or functions.
 
-In the `DllMain` that the MFC DLL Wizard generates, the call to `AfxInitExtensionModule` captures the module's run-time classes (`CRuntimeClass` structures) as well as its object factories (`COleObjectFactory` objects) for use when the `CDynLinkLibrary` object is created. You should check the return value of `AfxInitExtensionModule`; if a zero value is returned from `AfxInitExtensionModule`, return zero from your `DllMain` function.
+In the `DllMain` that the MFC DLL Wizard generates, the call to `AfxInitExtensionModule` captures the module's runtime classes (`CRuntimeClass` structures) as well as its object factories (`COleObjectFactory` objects) for use when the `CDynLinkLibrary` object is created. You should check the return value of `AfxInitExtensionModule`; if a zero value is returned from `AfxInitExtensionModule`, return zero from your `DllMain` function.
 
 If your MFC extension DLL will be explicitly linked to an executable (meaning the executable calls `AfxLoadLibrary` to link to the DLL), you should add a call to `AfxTermExtensionModule` on `DLL_PROCESS_DETACH`. This function allows MFC to clean up the MFC extension DLL when each process detaches from the MFC extension DLL (which happens when the process exits or when the DLL is unloaded as a result of a `AfxFreeLibrary` call). If your MFC extension DLL will be linked implicitly to the application, the call to `AfxTermExtensionModule` is not necessary.
 
@@ -160,7 +218,7 @@ Note that the header file Afxdllx.h contains special definitions for structures 
 > [!NOTE]
 > It is important that you neither define nor undefine any of the `_AFX_NO_XXX` macros in *pch.h* (*stdafx.h* in Visual Studio 2017 and earlier). These macros exist only for the purpose of checking whether a particular target platform supports that feature or not. You can write your program to check these macros (for example, `#ifndef _AFX_NO_OLE_SUPPORT`), but your program should never define or undefine these macros.
 
-A sample initialization function that handles multithreading is included in [Using Thread Local Storage in a Dynamic-Link Library](/windows/win32/Dlls/using-thread-local-storage-in-a-dynamic-link-library) in the Windows SDK. Note that the sample contains an entry-point function called `LibMain`, but you should name this function `DllMain` so that it works with the MFC and C run-time libraries.
+A sample initialization function that handles multithreading is included in [Using Thread Local Storage in a Dynamic-Link Library](/windows/win32/Dlls/using-thread-local-storage-in-a-dynamic-link-library) in the Windows SDK. Note that the sample contains an entry-point function called `LibMain`, but you should name this function `DllMain` so that it works with the MFC and C runtime libraries.
 
 ## See also
 

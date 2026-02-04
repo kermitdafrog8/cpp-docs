@@ -104,6 +104,41 @@ It's also possible to avoid some of these issues if all of the images in your pr
 
 Be careful if your program passes certain CRT resources across DLL boundaries. Resources such as file handles, locales, and environment variables can cause problems, even when using the same version of the CRT. For more information on the issues involved and how to resolve them, see [Potential errors passing CRT objects across DLL boundaries](./potential-errors-passing-crt-objects-across-dll-boundaries.md).
 
+### Problems with statically linked CRT libraries
+
+If an application that makes C runtime calls links to a DLL that also makes C runtime calls, be aware that if they are both linked with one of the statically linked C runtime libraries, the `.EXE` and DLL will have separate copies of all C runtime functions and global variables. This means that C runtime data cannot be shared between the `.EXE` and the DLL. Some of the problems that can occur are:
+
+- Passing buffered stream handles from the .EXE/DLL to the other module
+- Allocating memory with a C runtime call in the .EXE/DLL and reallocating or freeing it in the other module
+- Checking or setting the value of the global `errno` variable in the .EXE/DLL and expecting it to be the same in the other module. A related problem is calling `perror()` in the opposite module from where the C runtime error occurred, since `perror()` uses `errno`.
+
+To avoid these problems, link both the `.EXE` and DLL with `CRTDLL.LIB` or `MSVCRT.LIB`, which allows both the `.EXE` and DLL to use the common set of functions and data contained within CRT in a DLL, and C runtime data such as stream handles can then be shared by both the `.EXE` and DLL.
+
+### Mixing library types
+
+You can link your DLL with `CRTDLL.LIB`/`MSVCRT.LIB` regardless of what your `.EXE` is linked with if you avoid mixing CRT data structures and passing CRT file handles or CRT `FILE*` pointers to other modules.
+
+When mixing library types adhere to the following:
+
+- CRT file handles may only be operated on by the CRT module that created them.
+- CRT `FILE*` pointers may only be operated on by the CRT module that created them.
+- Memory allocated with the CRT function `malloc()` may only be freed or reallocated by the CRT module that allocated it.
+
+To illustrate this, consider the following example:
+
+- `.EXE` is linked with `MSVCRT.LIB`
+- DLL A is linked with `LIBCMT.LIB`
+- DLL B is linked with `CRTDLL.LIB`
+
+If the `.EXE` creates a CRT file handle using `_create()` or `_open()`, this file handle may only be passed to `_lseek()`, `_read()`, `_write()`, `_close()`, etc. in the `.EXE` file. Do not pass this CRT file handle to either DLL. Do not pass a CRT file handle obtained from either DLL to the other DLL or to the `.EXE`.
+
+If DLL A allocates a block of memory with `malloc()`, only DLL A may call `free()`, `_expand()`, or `realloc()` to operate on that block. You cannot call `malloc()` from DLL A and try to free that block from the `.EXE` or from DLL B.
+
+> [!NOTE]
+> If all three modules were linked with `CRTDLL.LIB` or all three were linked with `MSVCRT.LIB`, these restrictions would not apply.
+
+When linking DLLs with `LIBC.LIB`, be aware that if there is a possibility that such a DLL will be called by a multithreaded program, the DLL will not support multiple threads running in the DLL at the same time, which can cause major problems. If there is a possibility that the DLL will be called by multithreaded programs, be sure to link it with one of the libraries that support multithreaded programs (`LIBCMT.LIB`, `CRTDLL.LIB`, or `MSVCRT.LIB`).
+
 ## See also
 
 [C runtime library reference](./c-run-time-library-reference.md)\
