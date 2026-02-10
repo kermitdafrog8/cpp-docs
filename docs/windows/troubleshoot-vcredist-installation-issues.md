@@ -9,7 +9,7 @@ helpviewer_keywords: [ "redist", "vcredist", "Visual [C++] redistributable", "VC
 ---
 # Troubleshoot Visual C++ Redistributable installation issues
 
-This guide is for users experiencing issues while installing the Visual C++ Runtime components using the Visual C++ Redistributable (vcredist) installer or the Visual Studio (VS) Installer.
+This guide is for users experiencing issues while installing the Visual C++ Runtime components using the Visual C++ Redistributable (VC Redist) installer or the Visual Studio (VS) Installer.
 
 If you're experiencing such issues, we recommend that you first attempt installing the [latest version of the Visual C++ Redistributable](latest-supported-vc-redist.md).
 
@@ -21,15 +21,13 @@ The first step to diagnose an issue with the Visual C++ Redistributable installe
 2. Run `Collect.exe`.
 3. Extract the contents of `%TEMP%/vscollect.zip`.
 
-Once you extract `vscollect.zip`, the vcredist logs are located inside the `Temp` folder. The relevant log files are prefixed with the pattern `dd_vcredist_<arch>_yyyyMMddHHmmss`.
-
-The vcredist logs are useful to diagnose common installation issues.
+Once you extract `vscollect.zip`, the VC Redist logs are located inside the `Temp` folder. The relevant log files are prefixed with the pattern `dd_vcredist_<arch>_yyyyMMddHHmmss`.
 
 ### Other log locations
 
-The vcredist installer is often executed as a prerequisite of other products, in such cases the installation log might be found in a different path.
+The VC Redist installer is often executed as a prerequisite of other products, in such cases the installation log might be found in a different path.
 
-For example, [Configuration Manager](/intune/configmgr/core/understand/introduction) upgrades vcredist as part of its own upgrade process by running `vcredist_x64.exe` with the `/l` option that overrides the default log location.
+For example, [Configuration Manager](/intune/configmgr/core/understand/introduction) upgrades VC Redist as part of its own upgrade process by running `vcredist_x64.exe` with the `/l` option that overrides the default log location.
 
 In such cases, the path to the logs can be found by reading that product's own logs:
 
@@ -47,11 +45,11 @@ In such cases, the path to the logs can be found by reading that product's own l
 
 ## General troubleshooting steps
 
-This section describes general troubleshooting methods you can try to resolve issues with the vcredist installer.
+This section describes general troubleshooting methods you can try to resolve issues with the VC Redist installer.
 
 ### <a name="method-1"></a> Method 1: Disable antivirus software temporarily
 
-Security products often block installation of vcredist components.
+Security products often block installation of VC Redist components.
 
 1. Turn off Windows Defender real-time protection.
 2. Disable any corporate endpoint protection temporarily (Symantec, McAfee, etc.).
@@ -62,7 +60,7 @@ Security products often block installation of vcredist components.
 
 File-access failures are heavily correlated with insufficient permissions.
 
-1. Right-click the vcredist installer and select **Run as administrator**.
+1. Right-click the VC Redist installer and select **Run as administrator**.
 2. Retry the installation.
 
 ### <a name="method-3"></a> Method 3: Check for Windows System Updates
@@ -74,7 +72,7 @@ On rare occasions, outdated system components can cause installation issues.
 3. Retry the installation.
 
 > [!IMPORTANT]
-> The following troubleshooting methods apply when vcredist is installed as a component of the Visual Studio Installer.
+> The following troubleshooting methods apply when VC Redist is installed as a component of the Visual Studio Installer.
 
 ### <a name="method-4"></a> Method 4: Manually Run the Visual C++ Redistributable installer
 
@@ -120,27 +118,27 @@ This method helps in case the installer metadata is corrupted, deleting the inst
 Return code 1603 indicates a generic installation failure produced by the Windows Installer during the installation of the Visual C++ Runtime components.
 
 Because many factors can produce a 1603 code, the code by itself doesn't provide enough information to diagnose the cause of the issue.
-Often, the log files produced by the vcredistt installer contain relevant information that might lead to a solution or workaround.
+Often, the log files produced by the VC Redistt installer contain relevant information that might lead to a solution or workaround.
 
 The [Common issues](#common-issues) section describes examples of how to diagnose common installation errors and steps that might resolve them.
 If your issue isn't found here, then follow the instructions to [report an issue in the Visual C++ Redistributable installer](#report-a-visual-c-redistributable-installation-problem).
 
 ### Access denied
 
-An issue occurs during installation of vcredist failing with return code 5.
+An issue occurs during installation of VC Redist failing with return code 5.
 The error code typically indicates a permissions issue; specifically, an access denied issue.
 
 **Steps to resolve**
 
 1. Disable antivirus, group policies, and firewalls temporarily.
-2. Run the vcredist installer.
+2. Run the VC Redist installer.
 3. Reenable any disabled protection software.
 
-If the installation fails, try to run the vcredist installer as Administrator.
+If the installation fails, try to run the VC Redist installer as Administrator.
 
 ### File is locked
 
-An issue occurs during the installation of vcredist failing with return code 32.
+An issue occurs during the installation of VC Redist failing with return code 32.
 Likely causes include blocked permissions, interference from antivirus, group policies, or corrupted files.
 
 **Steps to resolve**
@@ -152,7 +150,7 @@ If the installation fails, try to restart your PC to release any locked files.
 
 ### Corrupt or invalid installer package
 
-The issue involves an error during installation of vcredist using the Visual Studio Installer with error code 1620.
+The issue involves an error during installation of VC Redist using the Visual Studio Installer with error code 1620.
 Error code 1620 indicates that a Windows Installer package couldn't be opened, likely due to corruption or invalid files.
 
 One or more of these error codes are present in the logs:
@@ -167,7 +165,7 @@ Methods 5, 6, and 7 in the [General troubleshoot steps](#file-is-locked) might h
 
 ### Older version can't be removed
 
-A corrupted Windows Installer cache produces error code 1714, indicating a failure to remove a previous version of vcredist.
+A corrupted Windows Installer cache produces error code 1714, indicating a failure to remove a previous version of VC Redist.
 
 The presence of these error messages indicates a corrupted cache.
 
@@ -205,19 +203,19 @@ Error 1714. The older version of Microsoft Visual C++ 2022 X64 Minimum Runtime -
 
 **Steps to resolve**
 
-From the log files, take note of the vcredist version causing the issue.
+From the log files, take note of the VC Redist version causing the issue.
 
 Method 1: Use the Windows Installer.
 
-1. Try using the Windows Installer to manually remove the old vcredist version.
+1. Try using the Windows Installer to manually remove the old VC Redist version.
    If prompted, let the Windows Installer Troubleshooter attempt to fix the issue.
 2. Retry the installation.
 
 Method 2: Manually remove the old version.
 
-1. Download the vcredist installer for the old version by following the steps in
+1. Download the VC Redist installer for the old version by following the steps in
    [Download old versions of the Visual C++ Redistributable installer](#old-vcredist-versions)
-2. Run the installer to uninstall the old vcredist.
+2. Run the installer to uninstall the old VC Redist.
 3. Retry the installation.
 
 ## <a name="old-vcredist-versions"></a> Download old versions of the Visual C++ Redistributable installer
@@ -225,9 +223,9 @@ Method 2: Manually remove the old version.
 > [!WARNING]
 > Never install a Visual C++ Redistributable installer that wasn't downloaded from a Microsoft site.
 
-The vcredist installer can be downloaded from [my.visualstudio.com](<https://my.visualstudio.com/Downloads>), search for Visual C++ Redistributable
+The VC Redist installer can be downloaded from [my.visualstudio.com](<https://my.visualstudio.com/Downloads>), search for Visual C++ Redistributable
 
-The latest supported vcredist version for each version of Visual Studio can be found in [this article](/cpp/windows/latest-supported-vc-redist).
+The latest supported VC Redist version for each version of Visual Studio can be found in [this article](/cpp/windows/latest-supported-vc-redist).
 
 To access older or legacy versions follow these steps:
 
@@ -262,9 +260,9 @@ If you encounter an issue not found in that section, or if the steps in this tro
 
 Your report must include the following information about your environment:
 
-- Version of vcredist you're trying to install.
-- If upgrading, version of previously installed vcredist installations.
+- Version of VC Redist you're trying to install.
+- If upgrading, version of previously installed VC Redist installations.
 - If installing through the Visual Studio Installer, version of the VS Installer.
 - Logs collected by following the steps in the [Collect failure logs](#collect-failure-logs) section.
 
-Feedback without this information, especially without logs, is nonactionable and might be closed if additional information is not submitted promptly.
+Feedback without this information, especially without logs, is nonactionable and might be closed if additional information isn't submitted promptly.
