@@ -76,14 +76,12 @@ On rare occasions, outdated system components can cause installation issues.
 
 ### <a name="method-4"></a> Method 4: Manually Run the Visual C++ Redistributable installer
 
-1. Go to `%ProgramData%\Microsoft\VisualStudio\Packages`
-2. Open the folders:
-    - `Microsoft.VisualCpp.Redist.14,version=<version>,chip=x64`
-    - `Microsoft.VisualCpp.Redist.14,version=<version>,chip=x86`
-3. Run:
-    - `vc_redist.x64.exe`
-    - `vc_redist.x86.exe`
-4. Retry the Visual Studio Installer.
+> [!NOTE]
+> The VS Installer might prompt for a reboot when VC Redist is installed separately.
+
+1. Download the [latest VC Redist installer](latest-supported-vc-redist.md).
+2. Run the VC Redist installer.
+3. Retry the Visual Studio Installer.
 
 If the manual installation fails, follow [methods 1 and 2](#method-1).
 
@@ -118,7 +116,7 @@ This method helps in case the installer metadata is corrupted, deleting the inst
 Return code 1603 indicates a generic installation failure produced by the Windows Installer during the installation of the Visual C++ Runtime components.
 
 Because many factors can produce a 1603 code, the code by itself doesn't provide enough information to diagnose the cause of the issue.
-Often, the log files produced by the VC Redistt installer contain relevant information that might lead to a solution or workaround.
+Often, the log files produced by the VC Redist installer contain relevant information that might lead to a solution or workaround.
 
 The [Common issues](#common-issues) section describes examples of how to diagnose common installation errors and steps that might resolve them.
 If your issue isn't found here, then follow the instructions to [report an issue in the Visual C++ Redistributable installer](#report-a-visual-c-redistributable-installation-problem).
@@ -236,17 +234,17 @@ For example: <https://aka.ms/vs/18/release/14.50.35719/VC_redist.x64.exe>.
 
 **Version 14.30 to 14.44**
 
-The download links use the `https://aka.ms/vs/17/release/<version>/VC_redist<arch>.exe` pattern.
+The download links use the `https://aka.ms/vs/17/release/<version>/VC_redist.<arch>.exe` pattern.
 For example: <https://aka.ms/vs/17/release/14.32.31332/VC_redist.arm64.exe>.
 
 **Version 14.20 to 14.29**
 
-The download links use the `https://aka.ms/vs/16/release/<version>/VC_redist<arch>.exe` pattern.
+The download links use the `https://aka.ms/vs/16/release/<version>/VC_redist.<arch>.exe` pattern.
 For example: <https://aka.ms/vs/16/release/14.28.29914/VC_Redist.x86.exe>
 
 **Version 14.10 or later**
 
-The download links use the `https://aka.ms/vs/15/release/<version>/VC_redist<arch>.exe` pattern.
+The download links use the `https://aka.ms/vs/15/release/<version>/VC_redist.<arch>.exe` pattern.
 For example: <https://aka.ms/vs/15/release/14.12.25810/VC_redist.x64.exe>
 
 If the aka.ms links don't work, you might be able to find the version you're looking for through a Bing search.
@@ -266,3 +264,10 @@ Your report must include the following information about your environment:
 - Logs collected by following the steps in the [Collect failure logs](#collect-failure-logs) section.
 
 Feedback without this information, especially without logs, is nonactionable and might be closed if additional information isn't submitted promptly.
+
+## See also
+
+- [Latest supported Visual C++ Redistributable downloads](latest-supported-vc-redist.md)
+- [C++ binary compatibility between Visual Studio versions](../porting/binary-compat-2015-2017.md)
+- [How to audit Visual C++ Runtime version usage](redist-version-auditing.md)
+- [Lifecycle FAQ - Visual C++ Redistributable and runtime libraries](/lifecycle/faq/visual-c-faq)
