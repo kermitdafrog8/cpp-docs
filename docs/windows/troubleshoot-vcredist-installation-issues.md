@@ -82,7 +82,7 @@ On rare occasions, outdated system components can cause installation issues.
 1. Run the VC Redist installer.
 1. Retry the Visual Studio Installer.
 
-If the manual installation fails, follow [methods 1 and 2](#method-1).
+If the manual installation fails, follow the [general troubleshooting steps for the standalone VC Redist installer](#general-troubleshooting-steps).
 
 ### Clear the Visual Studio Installer cache
 
@@ -110,6 +110,14 @@ This method helps in case the installer metadata is corrupted, deleting the inst
 
 ## Common issues
 
+### Common errors at a glance
+
+* [Generic installation failure (return code 1603)](#return-code-1603)
+* [Access denied (return code 5)](#access-denied)
+* [File is locked (return code 32)](#file-is-locked)
+* [Corrupt or invliad installer package (return code 1620)](#corrupt-or-invalid-installer-package)
+* [Older version can't be removed (return code 1714)](#older-version-cant-be-removed)
+
 ### Return code 1603
 
 Return code 1603 indicates a generic installation failure produced by the Windows Installer during the installation of the Visual C++ Runtime components.
@@ -134,7 +142,7 @@ If the installation fails, try to run the VC Redist installer as administrator.
 
 ### File is locked
 
-Installation fails with error code 32. This error code is tipically caused by locked files, interference from antivirus, group policies, or corrupted files.
+Installation fails with error code 32. Files in use by another process, interference from antivirus software, group policies, or corrupted files are common causes.
 
 **Steps to resolve**
 
@@ -159,7 +167,7 @@ Try the steps in the [General troubleshooting steps when using Visual Studio Ins
 
 ### Older version can't be removed
 
-Installation fails with the error code 1714. This error code indicates a corrupted Windows installre cache that results in failure to remove a previous version of VC Redist.
+Installation fails with the error code 1714. This error code indicates a corrupted Windows Installer cache that results in failure to remove a previous version of VC Redist.
 
 The presence of these error messages indicates a corrupted cache.
 
@@ -211,6 +219,7 @@ Method 2: Manually remove the old version.
 
 > [!WARNING]
 > Never install a Visual C++ Redistributable installer that wasn't downloaded from a Microsoft site.
+> Never install a Visual C++ Redistributable installer that isn't signed by Microsoft.
 
 Download the VC Redist installer from [my.visualstudio.com](<https://my.visualstudio.com/Downloads>). Search for Visual C++ Redistributable on the downloads page.
 
@@ -226,7 +235,7 @@ Links for older or legacy versions:
 | 14.10 to 14.19 | `https://aka.ms/vs/15/release/<version>/VC_redist.<arch>.exe` | <https://aka.ms/vs/15/release/14.12.25810/VC_redist.x64.exe>   |
 
 You might be able to find installers for older versions through a Bing search.
-However, make sure that the download comes from a Microsoft site and that the installer is signed by Microsoft.
+Only download VC Redist installers from a Microsoft site. Only install packages signed by Microsoft.
 
 ## Report a Visual C++ Redistributable installation problem
 
