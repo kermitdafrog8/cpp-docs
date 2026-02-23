@@ -21,12 +21,22 @@ For example, `S1` and `S2` generates C4324 because padding is added when the spe
 // C4324.cpp
 // compile with: /W4 /c
 
-struct alignas(4) S1 {};   // C4324
-
-struct alignas(8) S2
+struct alignas(8) S1 // C4324
 {
     int i;
 };   // C4324
+
+union alignas(16) U1
+{
+    int i;
+    float f;
+};  // C4324
+
+class alignas(8) C1
+{
+public:
+    int i = 0;
+}; // C4324
 
 struct alignas(4) S3
 {
