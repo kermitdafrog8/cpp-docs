@@ -109,7 +109,15 @@ The Visual Studio debugger handles this gracefully, and doesn't show these trace
 
 An image built with both `/fsanitize=address` and `/clr` may link and start, and native code that is normally compiled with AddressSanitizer can still report memory-safety errors when it is called from C++/CLI code.
 
-However, in managed C++ (C++/CLI or applications compiled with /clr), ASan support is limited to native code. Managed method bodies, managed objects, JIT-generated code, garbage-collected memory, managed thread startup, finalizers, and CLR shutdown/unload behavior are owned by the CLR and aren't guaranteed to have ASan load/store instrumentation. For reliable ASan diagnostics, put memory-augmenting implementation code in native translation units or native DLLs that are compiled normally with `/fsanitize=address`, and call that code from C++/CLI wrapper code.
+However, ASan support for C++/CLI is limited to normally compiled native code. C++/CLI method bodies, managed objects, JIT-generated code, garbage-collected memory, managed thread startup, finalizers, and CLR shutdown or unload behavior are owned by the CLR and aren't guaranteed to have ASan load/store instrumentation. For reliable ASan diagnostics, put memory-unsafe implementation code in native translation units or native DLLs that are compiled normally with `/fsanitize=address`, and call that code from C++/CLI wrapper code.
+
+For applications that continue running, you may experience misleading ASan reports or missed coverage:
+
+- Native-looking STL code compiled as C++/CLI may miss coverage. Even though the source looks identical, accesses emitted in the C++/CLI method body may not have native ASan load/store checks.
+- Managed array bounds errors are reported by the CLR, not ASan. A managed out-of-range access should be expected to produce CLR behavior such as `IndexOutOfRangeException`, not an `ERROR: AddressSanitizer` report.
+- Code running on CLR-created managed threads may miss ASan diagnostics for memory accesses emitted inside C++/CLI method bodies. The thread transition completing only proves the CLR transition worked; it doesn't prove the method body is ASan-covered.
+- C++/CLI finalizers and normal C++/CLI process teardown are CLR-owned and order-dependent. Failures or reports during finalization, shutdown, or mixed-mode unload shouldn't be interpreted as reliable ASan diagnostics for user memory bugs.
+- Loading an ASan-enabled C++/CLI wrapper DLL from a native host can produce misleading runtime failures, such as ASan access-violation reports on unknown addresses.
 
 ## See also
 
