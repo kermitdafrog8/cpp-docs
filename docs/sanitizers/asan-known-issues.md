@@ -105,6 +105,12 @@ On x64, MSVC ASan's [shadow bytes](./asan-shadow-bytes.md) region occupies sever
 
 The Visual Studio debugger handles this gracefully, and doesn't show these traces. However, debuggers like WinDbgX may break on every exception by default. Disabling breaking on first-chance exceptions is recommended. For example, in WinDbgX, this corresponds to the [`sxd av`](/windows-hardware/drivers/debuggercmds/sx--sxd--sxe--sxi--sxn--sxr--sx---set-exceptions-) command. 
 
+## Managed C++ is not fully supported
+
+An image built with both `/fsanitize=address` and `/clr` may link and start, and native code that is normally compiled with AddressSanitizer can still report memory-safety errors when it is called from C++/CLI code.
+
+However, in managed C++ (C++/CLI or applications compiled with /clr), ASan support is limited to native code. Managed method bodies, managed objects, JIT-generated code, garbage-collected memory, managed thread startup, finalizers, and CLR shutdown/unload behavior are owned by the CLR and aren't guaranteed to have ASan load/store instrumentation. For reliable ASan diagnostics, put memory-augmenting implementation code in native translation units or native DLLs that are compiled normally with `/fsanitize=address`, and call that code from C++/CLI wrapper code.
+
 ## See also
 
 [AddressSanitizer overview](asan.md)\
