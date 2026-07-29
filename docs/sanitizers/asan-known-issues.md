@@ -116,7 +116,7 @@ For applications that run, you might see misleading ASan reports or missed cover
 - STL code compiled as C++/CLI might miss coverage. Even though the source looks identical to native C++, accesses emitted in the C++/CLI method body might not have native ASan load or store checks.
 - The CLR, not ASan, reports managed array bounds errors. A managed out-of-range access produces CLR behavior such as `IndexOutOfRangeException`, not an `ERROR: AddressSanitizer` report.
 - Code running on managed threads might miss ASan diagnostics for memory accesses emitted inside C++/CLI method bodies. Even if the CLR thread transition works, it doesn't prove the method body is ASan aware.
-- C++/CLI finalizers and normal C++/CLI process teardown are maanged by the CLR and order-dependent. Don't interpret failures or reports during finalization, shutdown, or mixed-mode unload as reliable ASan diagnostics for user memory bugs.
+- C++/CLI finalizers and normal C++/CLI process teardown are managed by the CLR and order-dependent. Don't interpret failures or reports during finalization, shutdown, or mixed-mode unload as reliable ASan diagnostics for user memory bugs.
 - Loading an ASan-enabled C++/CLI wrapper DLL from a native host can produce misleading runtime failures, such as ASan access-violation reports on unknown addresses.
 ## See also
 
