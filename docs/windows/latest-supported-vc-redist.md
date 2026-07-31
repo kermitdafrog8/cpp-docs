@@ -1,6 +1,6 @@
 ---
 title: Latest Supported Visual C++ Redistributable Downloads
-description: This article provides download links for the latest Visual C++ Redistributable packages.
+description: If you need to install Visual C++ Runtime libraries with you app, this article includes downloads for ARM64, x86, and x64, plus legacy packages.
 ms.date: 12/03/2025
 helpviewer_keywords:
   [
