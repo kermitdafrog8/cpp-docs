@@ -112,11 +112,11 @@ For reliable AddressSanitizer (ASan) diagnostics, isolate memory-unsafe code in 
 
 The CLR manages memory and JIT-generated code, so C++/CLI code isn't guaranteed to receive ASan load and store instrumentation. As a result:
 
-• C++/CLI and STL code: Memory accesses within C++/CLI methods might not be instrumented, including accesses performed by STL code.
-• Managed arrays: Out-of-range access produces CLR behavior, such as `IndexOutOfRangeException`, rather than an ERROR: AddressSanitizer report.
-• Managed threads: Native memory accesses emitted within C++/CLI method bodies might not produce ASan diagnostics.
-• Finalization and shutdown: Reports during finalization, process shutdown, or mixed-mode unloading might not reliably indicate user-code memory bugs.
-• Native hosts: Loading an ASan-enabled C++/CLI wrapper DLL from a native host might produce misleading runtime failures, such as access-violation reports for unknown addresses.
+- C++/CLI and STL code: Memory accesses within C++/CLI methods might not be instrumented, including accesses performed by STL code.
+- Managed arrays: Out-of-range access produces CLR behavior, such as `IndexOutOfRangeException`, rather than an ERROR: AddressSanitizer report.
+- Managed threads: Native memory accesses emitted within C++/CLI method bodies might not produce ASan diagnostics.
+- Finalization and shutdown: Reports during finalization, process shutdown, or mixed-mode unloading might not reliably indicate user-code memory bugs.
+- Native hosts: Loading an ASan-enabled C++/CLI wrapper DLL from a native host might produce misleading runtime failures, such as access-violation reports for unknown addresses.
 
 ## See also
 
