@@ -1,7 +1,7 @@
 ---
 title: "AddressSanitizer known issues and limitations"
 description: "Technical description of the AddressSanitizer for Microsoft C/C++ known issues."
-ms.date: 11/19/2025
+ms.date: 8/18/2026
 helpviewer_keywords: ["AddressSanitizer known issues"]
 ---
 
@@ -104,6 +104,19 @@ Please report any bugs to our [Developer Community](https://aka.ms/feedback/repo
 On x64, MSVC ASan's [shadow bytes](./asan-shadow-bytes.md) region occupies several terabytes of virtual address space. ASan doesn't pre-commit this memory. Instead, it uses on-demand paging. When a shadow page is accessed for the first time, a first-chance page fault exception occurs and is handled by ASan, which commits the page.
 
 The Visual Studio debugger handles this gracefully, and doesn't show these traces. However, debuggers like WinDbgX may break on every exception by default. Disabling breaking on first-chance exceptions is recommended. For example, in WinDbgX, this corresponds to the [`sxd av`](/windows-hardware/drivers/debuggercmds/sx--sxd--sxe--sxi--sxn--sxr--sx---set-exceptions-) command. 
+
+## ASan support for C++/CLI is experimental
+
+For reliable AddressSanitizer (ASan) diagnostics, isolate memory-unsafe code in native translation units or DLLs compiled without `/clr` and with `/fsanitize=address`. Call the native code from C++/CLI wrappers.
+
+
+The CLR manages memory and JIT-generated code, so C++/CLI code isn't guaranteed to receive ASan load and store instrumentation. As a result:
+
+- C++/CLI and STL code: Memory accesses within C++/CLI methods might not be instrumented, including accesses performed by STL code.
+- Managed arrays: Out-of-range access produces CLR behavior, such as `IndexOutOfRangeException`, rather than an ERROR: AddressSanitizer report.
+- Managed threads: Native memory accesses emitted within C++/CLI method bodies might not produce ASan diagnostics.
+- Finalization and shutdown: Reports during finalization, process shutdown, or mixed-mode unloading might not reliably indicate user-code memory bugs.
+- Native hosts: Loading an ASan-enabled C++/CLI wrapper DLL from a native host might produce misleading runtime failures, such as access-violation reports for unknown addresses.
 
 ## See also
 
