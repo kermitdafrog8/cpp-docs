@@ -107,7 +107,8 @@ The Visual Studio debugger handles this gracefully, and doesn't show these trace
 
 ## ASan support for C++/CLI is experimental
 
-For reliable AddressSanitizer (ASan) diagnostics, isolate memory-unsafe code in native translation units or DLLs compiled without `/clr` and with `/fsanitize=address`. Call the native code from C++/CLI wrappers.
+For reliable AddressSanitizer (ASan) diagnostics, isolate memory-unsafe code in native translation units or DLLs compiled without `/clr` and with `/fsanitize=address`. Call the native code from C++/CLI wrappers.
+
 
 The CLR manages memory and JIT-generated code, so C++/CLI code isn't guaranteed to receive ASan load and store instrumentation. As a result:
 
