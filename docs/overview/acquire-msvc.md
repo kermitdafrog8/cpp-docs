@@ -1,7 +1,7 @@
 ---
 title: "Install the Microsoft C++ (MSVC) Build Tools"
 description: "Install the MSVC Build Tools using the Visual Studio Installer UI, command line, winget, or a .vsconfig file. Choose Preview, latest release, or an older in-support toolset, and target it from MSBuild, CMake, or the Visual Studio Command Prompt."
-ms.date: 08/19/2026
+ms.date: 08/20/2026
 ms.topic: how-to
 ai-usage: ai-assisted
 ms.service: "visual-cpp"
@@ -170,7 +170,7 @@ msbuild /p:Platform=<platform> /p:Configuration=<configuration> <your-vcxproj> /
 > [!NOTE]
 > Cross-install discovery requires Visual Studio version 18.8 or later.
 
-Visual Studio might find the requested `PlatformToolset` in the current installation even when that installation doesn't contain the exact `VCToolsVersion` you specified. To search all Visual Studio and Visual Studio Build Tools installations for the exact version, add the following properties to your `.vcxproj` file or a `Directory.Build.props` file:
+The current Visual Studio installation might not find the exact `VCToolsVersion` you specify. To search all Visaul Studio Build Tools installations, add the following properties to your `.vcxproj` file or a `Directory.Build.props` file:
 
 ```xml
 <PropertyGroup>
@@ -179,7 +179,7 @@ Visual Studio might find the requested `PlatformToolset` in the current installa
 </PropertyGroup>
 ```
 
-With discovery enabled, Visual Studio selects a pinned version from another installation even when the current installation contains a different version of the same `PlatformToolset`. This behavior supports reproducible builds without manually setting `VCToolsInstallDir`. The requested MSVC toolset must already be installed on the machine.
+With discovery enabled, Visual Studio finds the specified version, potentially from a different installation. This behavior supports reproducible builds without manually setting `VCToolsInstallDir`. The requested MSVC toolset must already be installed on the machine.
 
 To build with the MSVC preview tools, add `/p:MSVCPreviewEnabled=true`:
 
