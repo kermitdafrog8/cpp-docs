@@ -16,7 +16,7 @@ Specifies the architecture for code generation on x64. These switches apply to t
 ## Arguments
 
 **`/arch:SSE2`**\
-Enables x64 Streaming SIMD Extensions 2. The default instruction set is SSE2 if no **`/arch`** option is specified.
+Enables x64 Streaming SIMD Extensions 2. If you don't specify a **`/arch`** option, the default instruction set is SSE2.
 
 **`/arch:SSE4.2`**\
 Enables x64 Streaming SIMD Extensions 4.2.
