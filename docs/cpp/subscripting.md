@@ -7,7 +7,9 @@ ms.assetid: eb151281-6733-401d-9787-39ab6754c62c
 ---
 # Subscripting
 
-The subscript operator (**[ ]**), like the function-call operator, is considered a binary operator. The subscript operator must be a nonstatic member function that takes a single argument. This argument can be of any type and designates the desired array subscript.
+The subscript operator (**[ ]**), like the function-call operator, is a binary operator. Before C++23, the subscript operator must be a nonstatic member function. In C++23 and later, it can be a static member function. For more information, see [Static subscript operator](static-subscript-operator.md).
+
+The argument can be any type and designates the desired array subscript.
 
 ## Example
 
@@ -86,4 +88,5 @@ Note that the function **operator[]** returns a reference type. This causes it t
 
 ## See also
 
+[Static subscript operator](static-subscript-operator.md)\
 [Operator Overloading](../cpp/operator-overloading.md)
