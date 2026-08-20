@@ -170,7 +170,7 @@ msbuild /p:Platform=<platform> /p:Configuration=<configuration> <your-vcxproj> /
 > [!NOTE]
 > Cross-install discovery requires Visual Studio version 18.8 or later.
 
-The current Visual Studio installation might not find the exact `VCToolsVersion` you specify. To search all Visual Studio Build Tools installations, add the following properties to your `.vcxproj` file or a `Directory.Build.props` file:
+The current Visual Studio installation might not find the exact `VCToolsVersion` you specify. To search all Visual Studio and Visual Studio Build Tools installations, add the following properties to your `.vcxproj` file or a `Directory.Build.props` file:
 
 ```xml
 <PropertyGroup>
