@@ -336,8 +336,12 @@ items:
           href: ../cpp/assignment.md
         - name: Function call
           href: ../cpp/function-call-cpp.md
+        - name: Static function call operator
+          href: ../cpp/static-function-call-operator.md
         - name: Subscripting
           href: ../cpp/subscripting.md
+        - name: Static subscript operator
+          href: ../cpp/static-subscript-operator.md
         - name: Member access
           href: ../cpp/member-access.md
     - name: Classes and structs

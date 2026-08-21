@@ -1,8 +1,9 @@
 ---
 title: "Install the Microsoft C++ (MSVC) Build Tools"
 description: "Install the MSVC Build Tools using the Visual Studio Installer UI, command line, winget, or a .vsconfig file. Choose Preview, latest release, or an older in-support toolset, and target it from MSBuild, CMake, or the Visual Studio Command Prompt."
-ms.date: 07/13/2026
+ms.date: 08/20/2026
 ms.topic: how-to
+ai-usage: ai-assisted
 ms.service: "visual-cpp"
 ms.subservice: "tools"
 ms.custom: intro-installation
@@ -163,6 +164,22 @@ msbuild /p:Platform=<platform> /p:Configuration=<configuration> <your-vcxproj> /
 ```
 
 `<version>` matches the folder name under `<vs-install-dir>\VC\Tools\MSVC\<version>`.
+
+#### Discover an MSVC toolset in another installation
+
+> [!NOTE]
+> Cross-install discovery requires Visual Studio version 18.8 or later.
+
+The current Visual Studio installation might not find the exact `VCToolsVersion` you specify. To search all Visual Studio and Visual Studio Build Tools installations, add the following properties to your `.vcxproj` file or a `Directory.Build.props` file:
+
+```xml
+<PropertyGroup>
+  <EnableVCToolsVersionDiscovery>true</EnableVCToolsVersionDiscovery>
+  <VCToolsVersion>14.43.34604</VCToolsVersion>
+</PropertyGroup>
+```
+
+With discovery enabled, Visual Studio finds the specified version, potentially from a different installation. This behavior supports reproducible builds without manually setting `VCToolsInstallDir`. The requested MSVC toolset must already be installed on the machine.
 
 To build with the MSVC preview tools, add `/p:MSVCPreviewEnabled=true`:
 
