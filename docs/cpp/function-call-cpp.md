@@ -17,7 +17,7 @@ primary-expression ( expression-list )
 
 ## Remarks
 
-In this context, `primary-expression` is the first operand, and `expression-list`, a possibly empty list of arguments, is the second operand. The function-call operator is used for operations that require a number of parameters. This works because `expression-list` is a list instead of a single operand. The function-call operator must be a nonstatic member function.
+In this context, `primary-expression` is the first operand, and `expression-list`, a possibly empty list of arguments, is the second operand. The function-call operator is useful for operations that require a number of parameters. This usefulness comes from the fact that `expression-list` is a list instead of a single operand. Before C++23, the function-call operator had to be a nonstatic member function. In C++23 and later, it can be a static member function. For more information, see [Static function call operator](static-function-call-operator.md).
 
 The function-call operator, when overloaded, does not modify how functions are called; rather, it modifies how the operator is to be interpreted when applied to objects of a given class type. For example, the following code would usually be meaningless:
 
@@ -73,4 +73,5 @@ int main()
 
 ## See also
 
+[Static function call operator](static-function-call-operator.md)\
 [Operator Overloading](../cpp/operator-overloading.md)
