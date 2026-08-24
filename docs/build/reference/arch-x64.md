@@ -7,7 +7,7 @@ helpviewer_keywords: ["/arch:SSE2 compiler option [C++]", "/arch:SSE4.2 compiler
 ---
 # `/arch` (x64)
 
-Specifies the architecture for code generation on x64. These switches apply to the x64 targeting version of the compiler. For more information on **`/arch`** for other target architectures, see [`/arch` (x86)](arch-x86.md), [`/arch` (ARM64)](arch-arm64.md), and [`/arch` (ARM)](arch-arm.md).
+Specifies the architecture for code generation on x64. These switches apply to version of the compiler that targets x64. For more information about **`/arch`** for other target architectures, see [`/arch` (x86)](arch-x86.md), [`/arch` (ARM64)](arch-arm64.md), and [`/arch` (ARM)](arch-arm.md).
 
 ## Syntax
 
@@ -16,25 +16,25 @@ Specifies the architecture for code generation on x64. These switches apply to t
 ## Arguments
 
 **`/arch:SSE2`**\
-Enables x64 Streaming SIMD Extensions 2. If you don't specify a **`/arch`** option, the default instruction set is SSE2.
+Enables Streaming SIMD Extensions 2. If you don't specify a **`/arch`** option, the default instruction set is SSE2.
 
 **`/arch:SSE4.2`**\
-Enables x64 Streaming SIMD Extensions 4.2.
+Enables Streaming SIMD Extensions 4.2.
 
 **`/arch:AVX`**\
-Enables x64 Advanced Vector Extensions.
+Enables Advanced Vector Extensions.
 
 **`/arch:AVX2`**\
-Enables x64 Advanced Vector Extensions 2.
+Enables Advanced Vector Extensions 2.
 
 **`/arch:AVX512`**\
-Enables x64 Advanced Vector Extensions 512.
+Enables Advanced Vector Extensions 512.
 
 **`/arch:AVX10.1`**\
-Enables x64 Advanced Vector Extensions 10 version 1.
+Enables Advanced Vector Extensions 10 version 1.
 
 **`/arch:AVX10.2`**\
-Enables x64 Advanced Vector Extensions 10 version 2.
+Enables Advanced Vector Extensions 10 version 2.
 
 ## Remarks
 

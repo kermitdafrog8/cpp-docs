@@ -7,7 +7,7 @@ helpviewer_keywords: ["/arch:IA32 compiler option [C++]", "/arch:SSE compiler op
 ---
 # `/arch` (x86)
 
-Specifies the architecture for code generation on x86. These switches apply to the x86 (32-bit) targeting version of the compiler. For more information on **`/arch`** for other target architectures, see [`/arch` (ARM64)](arch-arm64.md), [`/arch` (x64)](arch-x64.md), and [`/arch` (ARM)](arch-arm.md).
+Specifies the architecture for code generation on x86. These switches apply to the version of the compiler that targets x86 (32-bit). For more information on **`/arch`** for other target architectures, see [`/arch` (ARM64)](arch-arm64.md), [`/arch` (x64)](arch-x64.md), and [`/arch` (ARM)](arch-arm.md).
 
 ## Syntax
 
@@ -19,25 +19,25 @@ Specifies the architecture for code generation on x86. These switches apply to t
 Specifies no enhanced instructions and also specifies x87 for floating-point calculations.
 
 **`/arch:SSE`**\
-Enables Intel Streaming SIMD Extensions.
+Enables Streaming SIMD Extensions.
 
 **`/arch:SSE2`**\
-Enables Intel Streaming SIMD Extensions 2. The default instruction set is SSE2 if no **`/arch`** option is specified.
+Enables Streaming SIMD Extensions 2. The default instruction set is SSE2 if no **`/arch`** option is specified.
 
 **`/arch:AVX`**\
-Enables Intel Advanced Vector Extensions.
+Enables Advanced Vector Extensions.
 
 **`/arch:AVX2`**\
-Enables Intel Advanced Vector Extensions 2.
+Enables Advanced Vector Extensions 2.
 
 **`/arch:AVX512`**\
-Enables Intel Advanced Vector Extensions 512.
+Enables Advanced Vector Extensions 512.
 
 **`/arch:AVX10.1`**\
-Enables Intel Advanced Vector Extensions 10 version 1.
+Enables Advanced Vector Extensions 10 version 1.
 
 **`/arch:AVX10.2`**\
-Enables Intel Advanced Vector Extensions 10 version 2.
+Enables Advanced Vector Extensions 10 version 2.
 
 ## Remarks
 
