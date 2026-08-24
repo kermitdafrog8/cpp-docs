@@ -22,7 +22,7 @@ Specifies no enhanced instructions and also specifies x87 for floating-point cal
 Enables Streaming SIMD Extensions.
 
 **`/arch:SSE2`**\
-Enables Streaming SIMD Extensions 2. The default instruction set is SSE2 if no **`/arch`** option is specified.
+Enables Streaming SIMD Extensions 2. If you don't specify an **`/arch`** option, the default instruction set is SSE2.
 
 **`/arch:AVX`**\
 Enables Advanced Vector Extensions.
