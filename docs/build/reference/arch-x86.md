@@ -7,7 +7,7 @@ helpviewer_keywords: ["/arch:IA32 compiler option [C++]", "/arch:SSE compiler op
 ---
 # `/arch` (x86)
 
-Specifies the architecture for code generation on x86. These switches apply to the version of the compiler that targets x86 (32-bit). For more information on **`/arch`** for other target architectures, see [`/arch` (ARM64)](arch-arm64.md), [`/arch` (x64)](arch-x64.md), and [`/arch` (ARM)](arch-arm.md).
+Specifies the architecture for code generation on x86. These switches apply to the version of the compiler that targets x86 (32-bit). For more information about **`/arch`** for other target architectures, see [`/arch` (ARM64)](arch-arm64.md), [`/arch` (x64)](arch-x64.md), and [`/arch` (ARM)](arch-arm.md).
 
 ## Syntax
 
