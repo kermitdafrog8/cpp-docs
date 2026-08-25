@@ -22,6 +22,7 @@ You can also declare the function call operator generated for a lambda expressio
 
 ```cpp
 [](parameter-list) static { function-body }
+[] static { function-body }
 ```
 
 ## Remarks
@@ -30,7 +31,7 @@ A static function call operator doesn't have a `this` pointer. It can't be `virt
 
 You can call a static function call operator by using an object of its class, which allows the object to work as a function object. You can also call it by using its qualified name. Taking its address produces a regular function pointer instead of a pointer-to-member function.
 
-A lambda expression can specify `static` after its parameter list. A static lambda can't have captures or be declared `mutable`. Declaring a captureless lambda doesn't make it static automatically; you must specify `static` to opt in to this behavior.
+A lambda expression can specify `static` after its parameter list. When the lambda has no parameters, you can omit the empty parameter list and specify `static` after the lambda introducer (`[]`). A static lambda can't have captures or be declared `mutable`. Declaring a captureless lambda doesn't make it static automatically; you must specify `static` to opt in to this behavior.
 
 The feature-test macro `__cpp_static_call_operator` is defined when the static function call operator is available.
 
