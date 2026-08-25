@@ -9,6 +9,8 @@ ms.assetid: eb151281-6733-401d-9787-39ab6754c62c
 
 The built-in subscript operator (**[ ]**) is a binary operator. Before C++23, an overloaded subscript operator (`operator[]`) had to be a nonstatic member function. In C++23 and later, it can also be a static member function. For more information, see [Static subscript operator](static-subscript-operator.md).
 
+The built-in subscript operator (**[ ]**) is a binary operator. Before C++23, subscript operator (`operator[]`) overloads had to be nonstatic member functions. In C++23 and later, you can also overload using a static member function. For more information, see [Static subscript operator](static-subscript-operator.md).
+
 The argument can be any type and designates the desired array subscript.
 
 ## Example
