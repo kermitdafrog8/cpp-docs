@@ -8,7 +8,7 @@ helpviewer_keywords: ["static function call operator [C++]", "static operator() 
 
 # Static function call operator (C++)
 
-In C++23, you can declare the function call operator (`operator()`) as a static member function. A static function call operator doesn't have an implicit object parameter. Use it when a callable type doesn't need to access instance data.
+In C++23, you can declare the function call operator, `operator()`, as a static member function. A static function call operator doesn't have an implicit object parameter. Use it when a callable type doesn't need to access instance data.
 
 Support for this feature was introduced in Visual Studio 2022 version 17.14 (MSVC 14.44). Use the `/std:c++latest` or `/std:c++23preview` compiler option.
 
