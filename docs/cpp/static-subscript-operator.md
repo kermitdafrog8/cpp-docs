@@ -8,7 +8,7 @@ helpviewer_keywords: ["static subscript operator [C++]", "static operator[] [C++
 
 # Static subscript operator (C++)
 
-In C++23, you can declare the subscript operator (`operator[]`) as a static member function. A static subscript operator doesn't have an implicit object parameter. Use it when a subscript operation doesn't need to access instance data.
+In C++23, you can declare the subscript operator, `operator[]`, as a static member function. A static subscript operator doesn't have an implicit object parameter. Use it when a subscript operation doesn't need to access instance data.
 
 Support for this feature was introduced in Visual Studio 2022 version 17.14 (MSVC 14.44). Use the `/std:c++latest` compiler option.
 
@@ -32,7 +32,7 @@ The feature-test macro `__cpp_multidimensional_subscript` has a value of at leas
 #endif
 ```
 
-## Example
+## Static subscript operator example
 
 The following example defines a stateless type that calculates powers of two and calls its static subscript operator in three ways:
 
