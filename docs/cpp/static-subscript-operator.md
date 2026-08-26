@@ -1,7 +1,7 @@
 ---
 description: "Learn how to declare and use the static subscript operator in C++."
 title: "Static subscript operator (C++)"
-ms.date: 08/19/2026
+ms.date: 08/26/2026
 ai-usage: ai-assisted
 helpviewer_keywords: ["static subscript operator [C++]", "static operator[] [C++]", "operator overloading [C++]"]
 ---
@@ -22,9 +22,15 @@ static return-type operator[](parameter-list);
 
 A static subscript operator doesn't have a `this` pointer. It can't be `virtual` or have a cv-qualifier (`const` or `volatile`) or ref-qualifier (`&`, `&&`).
 
-You can call a static subscript operator by using an object of its class, which allows the object to use subscript syntax. You can also call it by using its qualified name. Taking its address produces a regular function pointer instead of a pointer-to-member function.
+You can call a static subscript operator through an object or by using its qualified name. Taking its address produces a regular function pointer instead of a pointer-to-member function.
 
-The feature-test macro `__cpp_static_call_operator` is defined when the static subscript operator is available.
+The feature-test macro `__cpp_multidimensional_subscript` has a value of at least `202211L` when the static subscript operator is available. Simply checking whether the macro is defined is insufficient because its earlier value of `202110L` covers multidimensional subscripting but not `static operator[]`:
+
+```cpp
+#if defined(__cpp_multidimensional_subscript) && __cpp_multidimensional_subscript >= 202211L
+// static subscript operator is available
+#endif
+```
 
 ## Example
 

@@ -1,7 +1,7 @@
 ---
 description: "Learn how to declare and use the static function call operator in C++."
-title: "Static function call operator (C++)"
-ms.date: 08/19/2026
+title: "Static function call operator (C++23)"
+ms.date: 08/26/2026
 ai-usage: ai-assisted
 helpviewer_keywords: ["static function call operator [C++]", "static operator() [C++]", "operator overloading [C++]"]
 ---
@@ -10,7 +10,7 @@ helpviewer_keywords: ["static function call operator [C++]", "static operator() 
 
 In C++23, you can declare the function call operator (`operator()`) as a static member function. A static function call operator doesn't have an implicit object parameter. Use it when a callable type doesn't need to access instance data.
 
-Support for this feature was introduced in Visual Studio 2022 version 17.14 (MSVC 14.44). Use the `/std:c++latest` compiler option.
+Support for this feature was introduced in Visual Studio 2022 version 17.14 (MSVC 14.44). Use the `/std:c++latest` or `/std:c++23preview` compiler option.
 
 ## Syntax
 
@@ -22,6 +22,7 @@ You can also declare the function call operator generated for a lambda expressio
 
 ```cpp
 [](parameter-list) static { function-body }
+[] static { function-body }
 ```
 
 ## Remarks
@@ -30,13 +31,13 @@ A static function call operator doesn't have a `this` pointer. It can't be `virt
 
 You can call a static function call operator by using an object of its class, which allows the object to work as a function object. You can also call it by using its qualified name. Taking its address produces a regular function pointer instead of a pointer-to-member function.
 
-A lambda expression can specify `static` after its parameter list. A static lambda can't have captures or be declared `mutable`. Declaring a captureless lambda doesn't make it static automatically; you must specify `static` to opt in to this behavior.
+A lambda expression can specify `static` after its parameter list. When the lambda has no parameters, you can omit the empty parameter list and specify `static` after the lambda introducer (`[]`). A static lambda can't have captures or be declared `mutable`. Declaring a captureless lambda doesn't make it static automatically; you must specify `static` to opt in to this behavior.
 
 The feature-test macro `__cpp_static_call_operator` is defined when the static function call operator is available.
 
 ## Example
 
-The following example defines a stateless function object and calls its static function call operator in three ways:
+The following example defines a stateless function object and calls its static function call operator in three ways. It also defines a static lambda expression and calls it:
 
 ```cpp
 // Compile with: /std:c++latest
@@ -63,6 +64,7 @@ int main()
     std::cout << "multiply_function(5, 5) = "
               << multiply_function(5, 5) << std::endl;
 
+    // A static lambda expression that doubles its argument
     auto twice = [](int value) static noexcept
     {
         return value * 2;
