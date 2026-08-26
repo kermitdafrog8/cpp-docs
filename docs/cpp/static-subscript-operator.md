@@ -32,7 +32,7 @@ The feature-test macro `__cpp_multidimensional_subscript` has a value of at leas
 #endif
 ```
 
-## Example
+## Static subscript operator example
 
 The following example defines a stateless type that calculates powers of two and calls its static subscript operator in three ways:
 

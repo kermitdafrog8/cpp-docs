@@ -35,7 +35,7 @@ A lambda expression can specify `static` after its parameter list. When the lamb
 
 The feature-test macro `__cpp_static_call_operator` is defined when the static function call operator is available.
 
-## Example
+## Static function call operator example
 
 The following example defines a stateless function object and calls its static function call operator in three ways. It also defines a static lambda expression and calls it:
 
