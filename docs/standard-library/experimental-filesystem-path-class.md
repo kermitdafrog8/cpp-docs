@@ -1,17 +1,16 @@
 ---
-title: "path Class"
-description: "Learn more about the C++17 std::filesystem path class in the <filesystem> header."
+title: "<experimental/filesystem> path class"
+description: "Learn more about the removed Microsoft prestandard std::experimental::filesystem path class."
 ms.date: 08/27/2026
-f1_keywords: ["filesystem/std::filesystem::path"]
-helpviewer_keywords: ["std::filesystem::path class"]
+f1_keywords: ["filesystem/std::experimental::filesystem::path"]
+helpviewer_keywords: ["std::experimental::filesystem::path class"]
 ---
-# `path` class
+# `<experimental/filesystem>` path class
 
-The **`path`** class stores an object of type `string_type`, called `myname` here for the purposes of exposition, suitable for use as a pathname. `string_type` is a synonym for `basic_string<value_type>`, where `value_type` is a synonym for **`wchar_t`** on Windows or **`char`** on POSIX.
+> [!IMPORTANT]
+> This page documents the removed Microsoft prestandard `std::experimental::filesystem::path` implementation provided by the `<experimental/filesystem>` header. It is **not** the C++17 `std::filesystem::path` class. This prestandard implementation is based on the *File System Technical Specification* (N4100) and predates C++17 `std::filesystem`. The `<experimental/filesystem>` header and the `std::experimental::filesystem` namespace are removed starting in the Microsoft Visual C++ toolset 14.51. For the current, supported C++17 implementation, see [`path` class](path-class.md).
 
-The `path` class described here is the C++17 `std::filesystem::path` class in the `<filesystem>` header.
-
-For more information, and code examples, see [File System Navigation (C++)](../standard-library/file-system-navigation.md).
+The **`path`** class stores an object of type `string_type`, called `myname` here for the purposes of exposition, suitable for use as a pathname. `string_type` is a synonym for `basic_string<value_type>`, where `value_type` is a synonym for **`wchar_t`** on Windows.
 
 ## Syntax
 
@@ -33,12 +32,6 @@ class path;
 |[`iterator`](#iterator)|A bidirectional constant iterator that designates the `path` components of `myname`.|
 |[`string_type`](#string_type)|The type is a synonym for `basic_string<value_type>`.|
 
-### Enumerations
-
-|Type name|Description|
-|-|-|
-|[`format`](#format)|Specifies the pathname format for constructors: `auto_format`, `native_format`, or `generic_format`.|
-
 ### Member functions
 
 |Member function|Description|
@@ -56,7 +49,7 @@ class path;
 |[`filename`](#filename)|Returns the filename component of `myname`, specifically `empty() ? path() : *--end()`. The component may be empty.|
 |[`generic_string`](#generic_string)|Returns `this->string<Elem, Traits, Alloc>(al)` with (under Windows) any backslash converted to a forward slash.|
 |[`generic_u16string`](#generic_u16string)|Returns `u16string()` with (under Windows) any backslash converted to a forward slash.|
-|[`generic_u32string`](#generic_u32string)|Returns `u32string()` with (under Windows) any backslash converted to a forward slash.|
+|[`generic_u32string`](#generic_u32string)|Deleted in the historical MSVC implementation.|
 |[`generic_u8string`](#generic_u8string)|Returns `u8string()` with (under Windows) any backslash converted to a forward slash.|
 |[`generic_wstring`](#generic_wstring)|Returns `wstring()` with (under Windows) any backslash converted to a forward slash.|
 |[`has_extension`](#has_extension)|Returns `!extension().empty()`.|
@@ -69,9 +62,6 @@ class path;
 |[`has_stem`](#has_stem)|Returns `!stem().empty()`.|
 |[`is_absolute`](#is_absolute)|For Windows, the function returns `has_root_name() && has_root_directory()`. For POSIX, the function returns `has_root_directory()`.|
 |[`is_relative`](#is_relative)|Returns `!is_absolute()`.|
-|[`lexically_normal`](#lexically_normal)|Returns `myname` converted to normal form.|
-|[`lexically_proximate`](#lexically_proximate)|Returns `lexically_relative(base)`, or `*this` if that result is empty.|
-|[`lexically_relative`](#lexically_relative)|Returns `myname` made relative to a base path, using lexical (string) analysis only.|
 |[`make_preferred`](#make_preferred)|Converts each separator to a `preferred_separator` as needed.|
 |[`native`](#native)|Returns the native representation of the path.|
 |[`parent_path`](#parent_path)|Returns the parent path component of `myname`.|
@@ -87,7 +77,7 @@ class path;
 |[`string`](#string)|Converts the sequence stored in `myname`.|
 |[`swap`](#swap)|Executes `swap(myname, right.myname)`.|
 |[`u16string`](#u16string)|Converts the sequence stored in `myname` to UTF-16 and returns it stored in an object of type `u16string`.|
-|[`u32string`](#u32string)|Converts the sequence stored in `myname` to UTF-32 and returns it stored in an object of type `u32string`.|
+|[`u32string`](#u32string)|Deleted in the historical MSVC implementation.|
 |[`u8string`](#u8string)|Converts the sequence stored in `myname` to UTF-8 and returns it stored in an object of type `u8string`.|
 |[`value_type`](#value_type)|The type describes the path elements favored by the host operating system.|
 |[`wstring`](#wstring)|Converts the sequence stored in `myname` to the encoding favored by the host system for a **`wchar_t`** sequence and returns it stored in an object of type `wstring`.|
@@ -103,9 +93,9 @@ class path;
 
 ## Requirements
 
-**Header:** `<filesystem>`
+**Header:** `<experimental/filesystem>`
 
-**Namespace:** `std::filesystem`
+**Namespace:** `std::experimental::filesystem`
 
 ## <a name="append"></a> `path::append`
 
@@ -135,8 +125,6 @@ End of specified sequence.
 Replaces `myname` with the specified sequence, converted as needed.
 
 ```cpp
-path& assign(string_type&& source);
-
 template <class Source>
 path& assign(const Source& source);
 
@@ -181,12 +169,11 @@ void clear() noexcept;
 
 ## <a name="compare"></a> `path::compare`
 
-The first function compares the elements of this path with *`pval`*. The other functions construct a path from their argument and return the result of comparing it with this path.
+The first function returns `myname.compare(pval.native())`. The second function returns `myname.compare(str)`. The third function returns `myname.compare(ptr)`.
 
 ```cpp
 int compare(const path& pval) const noexcept;
 int compare(const string_type& str) const;
-int compare(basic_string_view<value_type> str) const;
 int compare(const value_type *ptr) const;
 ```
 
@@ -272,30 +259,6 @@ Returns the filename component of `myname`, specifically `empty() ? path() : *--
 path filename() const;
 ```
 
-## <a name="format"></a> `path::format`
-
-Specifies the pathname format used to interpret the character sequence passed to a `path` constructor.
-
-```cpp
-enum format {
-    auto_format,
-    native_format,
-    generic_format
-};
-```
-
-### Members
-
-|Enumerator|Description|
-|-|-|
-|`auto_format`|The implementation autodetects the format. This is the default for the constructors that take a `format` argument.|
-|`native_format`|Interpret the sequence in the native pathname format.|
-|`generic_format`|Interpret the sequence in the generic pathname format.|
-
-### Remarks
-
-Because the native format and the generic format are interchangeable on Windows, the Microsoft implementation treats all three enumerators the same. The `format` parameter is provided for standard conformance and portability. For more information, see the WG21 N4659 [fs.class.path] specification.
-
 ## <a name="generic_string"></a> `path::generic_string`
 
 Returns `this->string<Elem, Traits, Alloc>(al)` with (under Windows) any backslash converted to a forward slash.
@@ -320,10 +283,10 @@ u16string generic_u16string() const;
 
 ## <a name="generic_u32string"></a> `path::generic_u32string`
 
-Returns `u32string()` with (under Windows) any backslash converted to a forward slash.
+This function is deleted in the historical MSVC implementation.
 
 ```cpp
-u32string generic_u32string() const;
+u32string generic_u32string() const = delete;
 ```
 
 ## <a name="generic_u8string"></a> `path::generic_u8string`
@@ -463,48 +426,6 @@ For `pval` an object of type `path`:
 
 1. Altering `myname` invalidates all iterators designating elements in `myname`.
 
-## <a name="lexically_normal"></a> `path::lexically_normal`
-
-Returns `myname` converted to normal form. The conversion is purely lexical: the filesystem isn't accessed.
-
-```cpp
-path lexically_normal() const;
-```
-
-### Remarks
-
-Normalization collapses redundant elements such as `.` and `..` and directory separators. For example, `path("a/./b/../c").lexically_normal()` yields `a\c` on Windows. An empty path normalizes to an empty path; a path that reduces to nothing normalizes to `.`. For the full normalization algorithm, see the WG21 N4659 [fs.path.generic] specification.
-
-## <a name="lexically_proximate"></a> `path::lexically_proximate`
-
-Returns the result of [`lexically_relative(base)`](#lexically_relative). If that result is an empty path, returns a copy of `*this` instead.
-
-```cpp
-path lexically_proximate(const path& base) const;
-```
-
-### Parameters
-
-*`base`*\
-The base path to make `*this` proximate to.
-
-## <a name="lexically_relative"></a> `path::lexically_relative`
-
-Returns `myname` made relative to *`base`*, using lexical (string) analysis only. The filesystem isn't accessed.
-
-```cpp
-path lexically_relative(const path& base) const;
-```
-
-### Parameters
-
-*`base`*\
-The base path to make `*this` relative to.
-
-### Remarks
-
-If `root_name() != base.root_name()`, or if one path is absolute and the other is relative, or if the path has a filename but no root directory while the base doesn't, returns an empty path. Otherwise, determines the relative path from *`base`* to `*this` by finding the first mismatched element and emitting `..` for each remaining element of *`base`*, followed by the remaining elements of `*this`. For example, `path("/a/d").lexically_relative("/a/b/c")` yields `..\..\d`. For the full algorithm, see the WG21 N4659 [fs.path.gen] specification.
-
 ## <a name="make_preferred"></a> `path::make_preferred`
 
 Converts each separator to a `preferred_separator` as needed.
@@ -528,12 +449,12 @@ The path is available in a portable generic format (see [`generic_string()`](#ge
 In the following example running on Windows, the generic path string is `c:/t/temp.txt` and the native string is `c:\t\temp.txt`.
 
 ```cpp
-// Compile with /std:c++17 or higher
-#include <filesystem>
+// Compile with /std:c++14 and _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING defined.
+#include <experimental/filesystem>
 
 int main()
 {
-    std::filesystem::path p(R"(c:\t\temp.txt)");
+    std::experimental::filesystem::path p(LR"(c:\t\temp.txt)");
     auto native = p.native();          // Windows: L"c:\\t\\temp.txt"
     auto generic = p.generic_string(); // Windows: "c:/t/temp.txt"
 }
@@ -546,7 +467,6 @@ Replaces the elements of the path with a copy of another path.
 ```cpp
 path& operator=(const path& right);
 path& operator=(path&& right) noexcept;
-path& operator=(string_type&& source);
 
 template <class Source>
 path& operator=(const Source& source);
@@ -555,14 +475,14 @@ path& operator=(const Source& source);
 ### Parameters
 
 *`right`*\
-The [`path`](../standard-library/path-class.md) being copied into the `path`.
+The [`path`](../standard-library/experimental-filesystem-path-class.md) being copied into the `path`.
 
 *`source`*\
 The source `path`.
 
 ### Remarks
 
-The first member operator copies `right.myname` to `myname`. The second member operator moves `right.myname` to `myname`. The third member operator moves *`source`* into `myname`. The fourth member operator behaves the same as `*this = path(source)`.
+The first member operator copies `right.myname` to `myname`. The second member operator moves `right.myname` to `myname`. The third member operator behaves the same as `*this = path(source)`.
 
 ## <a name="op_add"></a> `path::operator+=`
 
@@ -571,7 +491,6 @@ Various `concat` expressions.
 ```cpp
 path& operator+=(const path& right);
 path& operator+=(const string_type& str);
-path& operator+=(basic_string_view<value_type> str);
 path& operator+=(const value_type *ptr);
 path& operator+=(value_type elem);
 
@@ -601,7 +520,19 @@ The added source.
 
 ### Remarks
 
-The member functions behave the same as calling [`concat`](#concat) with the argument. The `path`, `string_type`, `basic_string_view`, and null-terminated `value_type*` overloads concatenate the argument's character sequence. The `value_type` and `Elem` overloads concatenate a single character. The templated `Source` overload concatenates the converted source sequence.
+The member functions behave the same as the following corresponding expressions:
+
+1. `concat(right);`
+
+1. `concat(path(str));`
+
+1. `concat(ptr);`
+
+1. `concat(string_type(1, elem));`
+
+1. `concat(source);`
+
+1. `concat(path(basic_string<Elem>(1, elem)));`
 
 ## <a name="op_divide"></a> `path::operator/=`
 
@@ -655,24 +586,22 @@ Returns the parent path component of `myname`, specifically the prefix of `mynam
 Constructs a `path` in various ways.
 
 ```cpp
-path() noexcept;
+path();
 
 path(const path& right);
 path(path&& right) noexcept;
 
-path(string_type&& source, format fmt = auto_format);
+template <class Source>
+path(const Source& source);
 
 template <class Source>
-path(const Source& source, format fmt = auto_format);
+path(const Source& source, const locale& loc);
 
 template <class InIt>
-path(InIt first, InIt last, format fmt = auto_format);
-
-template <class Source>
-path(const Source& source, const locale& loc, format fmt = auto_format);
+path(InIt first, InIt last);
 
 template <class InIt>
-path(InIt first, InIt last, const locale& loc, format fmt = auto_format);
+path(InIt first, InIt last, const locale& loc);
 ```
 
 ### Parameters
@@ -682,9 +611,6 @@ The path of which the constructed path is to be a copy.
 
 *`source`*\
 The source of which the constructed path is to be a copy.
-
-*`fmt`*\
-The pathname [`format`](#format) used to interpret *`source`* or the *`first`*/*`last`* range. Defaults to `auto_format`.
 
 *`loc`*\
 The specified locale.
@@ -701,21 +627,17 @@ The constructors all construct `myname` in various ways:
 
 For `path()` it's `myname()`.
 
-For `path(const path& right)` it's `myname(right.myname)`.
+For `path(const path& right`) it's `myname(right.myname)`.
 
 For `path(path&& right)` it's `myname(right.myname)`.
 
-For `path(string_type&& source, format fmt)` it's `myname(move(source))`.
+For `template<class Source> path(const Source& source)` it's `myname(source)`.
 
-For `template<class Source> path(const Source& source, format fmt)` it's `myname(source)`.
+For `template<class Source> path(const Source& source, const locale& loc)` it's `myname(source)`, obtaining any needed `codecvt` facets from `loc`.
 
-For `template<class Source> path(const Source& source, const locale& loc, format fmt)` it's `myname(source)`, obtaining any needed `codecvt` facets from `loc`.
+For `template<class InIt> path(InIt first, InIt last)` it's `myname(first, last)`.
 
-For `template<class InIt> path(InIt first, InIt last, format fmt)` it's `myname(first, last)`.
-
-For `template<class InIt> path(InIt first, InIt last, const locale& loc, format fmt)` it's `myname(first, last)`, obtaining any needed `codecvt` facets from `loc`.
-
-The *`fmt`* parameter selects the pathname format. On Windows, the native and generic formats are interchangeable, so the Microsoft implementation ignores *`fmt`*.
+For `template<class InIt> path(InIt first, InIt last, const locale& loc)` it's `myname(first, last)`, obtaining any needed `codecvt` facets from `loc`.
 
 ## <a name="preferred_separator"></a> `path::preferred_separator`
 
@@ -862,8 +784,6 @@ The first (template) member function converts the sequence stored in `myname` th
 
 1. `u16string()` for `string<char16_t, Traits, Alloc>()`
 
-1. `u32string()` for `string<char32_t, Traits, Alloc>()`
-
 The second member function converts the sequence stored in `myname` to the encoding favored by the host system for a **`char`** sequence and returns it stored in an object of type `string`.
 
 ## <a name="string_type"></a> `path::string_type`
@@ -892,10 +812,10 @@ u16string u16string() const;
 
 ## <a name="u32string"></a> `path::u32string`
 
-Converts the sequence stored in `myname` to UTF-32 and returns it stored in an object of type `u32string`.
+This function is deleted in the historical MSVC implementation.
 
 ```cpp
-u32string u32string() const;
+u32string u32string() const = delete;
 ```
 
 ## <a name="u8string"></a> `path::u8string`
@@ -928,5 +848,5 @@ wstring wstring() const;
 
 ## See also
 
-[`<filesystem>`](../standard-library/filesystem.md)\
-[Header Files Reference](../standard-library/cpp-standard-library-header-files.md)
+[`<experimental/filesystem>`](../standard-library/experimental-filesystem.md)\
+[`<experimental/filesystem>` operators](../standard-library/experimental-filesystem-operators.md)

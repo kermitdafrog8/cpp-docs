@@ -1,9 +1,9 @@
 ---
 title: "file_status Class"
 description: "Learn more about: file_status Class"
-ms.date: 09/10/2018
-f1_keywords: ["filesystem/std::experimental::filesystem::file_status", "filesystem/std::experimental::filesystem::file_status::operator=", "filesystem/std::experimental::filesystem::file_status::type", "filesystem/std::experimental::filesystem::file_status::permissions"]
-helpviewer_keywords: ["std::experimental::filesystem::file_status", "std::experimental::filesystem::file_status::operator=", "std::experimental::filesystem::file_status::type", "std::experimental::filesystem::file_status::permissions"]
+ms.date: 08/27/2026
+f1_keywords: ["filesystem/std::filesystem::file_status", "filesystem/std::filesystem::file_status::operator=", "filesystem/std::filesystem::file_status::type", "filesystem/std::filesystem::file_status::permissions"]
+helpviewer_keywords: ["std::filesystem::file_status", "std::filesystem::file_status::operator=", "std::filesystem::file_status::type", "std::filesystem::file_status::permissions"]
 ---
 # file_status Class
 
@@ -38,7 +38,7 @@ class file_status;
 
 **Header:** \<filesystem>
 
-**Namespace:** std::experimental::filesystem, std::experimental::filesystem
+**Namespace:** std::filesystem
 
 ## <a name="file_status"></a> file_status::file_status
 
@@ -86,8 +86,8 @@ The [file_status](../standard-library/file-status-class.md) being copied into th
 Gets or sets the `file_type`.
 
 ```cpp
-file_type type() const noexcept
-void type(file_type ftype) noexcept
+file_type type() const noexcept;
+void type(file_type ftype) noexcept;
 ```
 
 ### Parameters
@@ -102,8 +102,8 @@ Gets or sets the file permissions.
 Use the setter to make a file `readonly` or remove the `readonly` attribute.
 
 ```cpp
-perms permissions() const noexcept
-void permissions(perms mask) noexcept
+perms permissions() const noexcept;
+void permissions(perms mask) noexcept;
 ```
 
 ### Parameters

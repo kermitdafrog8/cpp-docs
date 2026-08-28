@@ -1,12 +1,15 @@
 ---
-description: "Learn more about: filesystem_error Class"
-title: "filesystem_error Class"
+description: "Learn more about: <experimental/filesystem> filesystem_error Class"
+title: "<experimental/filesystem> filesystem_error Class"
 ms.date: 08/27/2026
-f1_keywords: ["filesystem/std::filesystem::filesystem_error"]
+f1_keywords: ["filesystem/std::experimental::filesystem::filesystem_error"]
 ---
-# filesystem_error Class
+# `<experimental/filesystem>` filesystem_error Class
 
-A base class for all exceptions that report a low-level system error.
+> [!IMPORTANT]
+> This article describes the prestandard `<experimental/filesystem>` implementation of `filesystem_error`. It documents the historical File System Technical Specification ([ISO/IEC JTC 1/SC 22/WG 21 N4100](https://wg21.link/n4100)), not the C++17 `std::filesystem::filesystem_error` class. The experimental implementation was removed starting with MSVC version 14.51. For current code, use the standard [filesystem_error Class](../standard-library/filesystem-error-class.md).
+
+A base class for all exceptions that are thrown to report a low-level system error.
 
 ## Syntax
 
@@ -16,7 +19,7 @@ class filesystem_error : public system_error;
 
 ## Remarks
 
-The class serves as the base class for all exceptions thrown to report an error in \<filesystem> functions. It stores an object of type `string`, called `mymesg` here for the purposes of exposition. It also stores two objects of type `path`, called `mypval1` and `mypval2`.
+The class serves as the base class for all exceptions thrown to report an error in \<experimental/filesystem> functions. It stores an object of type `string`, called `mymesg` here for the purposes of exposition. It also stores two objects of type `path`, called `mypval1` and `mypval2`.
 
 ## Members
 
@@ -36,9 +39,9 @@ The class serves as the base class for all exceptions thrown to report an error 
 
 ## Requirements
 
-**Header:** \<filesystem>
+**Header:** \<experimental/filesystem>
 
-**Namespace:** std::filesystem
+**Namespace:** std::experimental::filesystem
 
 ## <a name="filesystem_error"></a> filesystem_error
 
@@ -95,3 +98,8 @@ The member function returns a pointer to an `NTBS`, preferably composed from `ru
 ```cpp
 const char *what() const noexcept;
 ```
+
+## See also
+
+[`<experimental/filesystem>`](../standard-library/experimental-filesystem.md)\
+[`path` class](../standard-library/experimental-filesystem-path-class.md)
