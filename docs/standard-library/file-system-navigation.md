@@ -1,12 +1,14 @@
 ---
 title: "File System Navigation"
 description: "How to use the C++ Standard library filesystem APIs to navigate the file system."
-ms.date: "04/13/2020"
-ms.assetid: f7cc5f5e-a541-4e00-87c7-a3769ef6096d
+ms.date: 08/27/2026
 ---
 # File System Navigation
 
-The `<filesystem>` header implements the C++ File System Technical Specification ISO/IEC TS 18822:2015 (Final draft: [ISO/IEC JTC 1/SC 22/WG 21 N4100](https://wg21.link/n4100)) and has types and functions that enable you to write platform-independent code for navigating the file system. Because it's cross-platform, it contains APIs that aren't relevant for Windows systems. For example, `is_fifo(const path&)` always returns **`false`** on Windows.
+The C++17 `<filesystem>` header provides types and functions that enable you to write platform-independent code for navigating the file system. Because it's cross-platform, it contains APIs that aren't relevant for Windows systems. For example, `is_fifo(const path&)` always returns **`false`** on Windows.
+
+> [!NOTE]
+> This article covers the current C++17 `std::filesystem` library. For the historical prestandard MSVC implementation that was removed starting in MSVC version 14.51, see [`<experimental/filesystem>`](../standard-library/experimental-filesystem.md).
 
 ## Overview
 

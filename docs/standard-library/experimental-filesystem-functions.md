@@ -1,49 +1,66 @@
 ---
-title: "<filesystem> functions"
-description: "Learn more about: <filesystem> functions"
+title: "<experimental/filesystem> functions"
+description: "Learn more about: <experimental/filesystem> functions"
 ms.date: 08/27/2026
-f1_keywords: ["filesystem/std::filesystem::absolute", "filesystem/std::filesystem::canonical", "filesystem/std::filesystem::copy", "filesystem/std::filesystem::copy_file", "filesystem/std::filesystem::copy_symlink", "filesystem/std::filesystem::create_directories", "filesystem/std::filesystem::create_directory", "filesystem/std::filesystem::create_directory_symlink", "filesystem/std::filesystem::create_hard_link", "filesystem/std::filesystem::create_symlink", "filesystem/std::filesystem::current_path", "filesystem/std::filesystem::equivalent", "filesystem/std::filesystem::exists", "filesystem/std::filesystem::file_size", "filesystem/std::filesystem::hard_link_count", "filesystem/std::filesystem::hash_value", "filesystem/std::filesystem::is_block_file", "filesystem/std::filesystem::is_character_file", "filesystem/std::filesystem::is_directory", "filesystem/std::filesystem::is_empty", "filesystem/std::filesystem::is_fifo", "filesystem/std::filesystem::is_other", "filesystem/std::filesystem::is_regular_file", "filesystem/std::filesystem::is_socket", "filesystem/std::filesystem::is_symlink", "filesystem/std::filesystem::last_write_time", "filesystem/std::filesystem::permissions", "filesystem/std::filesystem::proximate", "filesystem/std::filesystem::read_symlink", "filesystem/std::filesystem::relative", "filesystem/std::filesystem::remove", "filesystem/std::filesystem::remove_all", "filesystem/std::filesystem::rename", "filesystem/std::filesystem::resize_file", "filesystem/std::filesystem::space", "filesystem/std::filesystem::status", "filesystem/std::filesystem::status_known", "filesystem/std::filesystem::swap", "filesystem/std::filesystem::symlink_status", "filesystem/std::filesystem::temp_directory_path", "filesystem/std::filesystem::u8path", "filesystem/std::filesystem::weakly_canonical"]
-helpviewer_keywords: ["std::filesystem::absolute", "std::filesystem::canonical", "std::filesystem::copy", "std::filesystem::copy_file", "std::filesystem::copy_symlink", "std::filesystem::create_directories", "std::filesystem::create_directory", "std::filesystem::create_directory_symlink", "std::filesystem::create_hard_link", "std::filesystem::create_symlink", "std::filesystem::current_path", "std::filesystem::equivalent", "std::filesystem::exists", "std::filesystem::file_size", "std::filesystem::hard_link_count", "std::filesystem::hash_value", "std::filesystem::is_block_file", "std::filesystem::is_character_file", "std::filesystem::is_directory", "std::filesystem::is_empty", "std::filesystem::is_fifo", "std::filesystem::is_other", "std::filesystem::is_regular_file", "std::filesystem::is_socket", "std::filesystem::is_symlink", "std::filesystem::last_write_time", "std::filesystem::permissions", "std::filesystem::proximate", "std::filesystem::read_symlink", "std::filesystem::relative", "std::filesystem::remove", "std::filesystem::remove_all", "std::filesystem::rename", "std::filesystem::resize_file", "std::filesystem::space", "std::filesystem::status", "std::filesystem::status_known", "std::filesystem::swap", "std::filesystem::symlink_status", "std::filesystem::temp_directory_path", "std::filesystem::u8path", "std::filesystem::weakly_canonical"]
+f1_keywords: ["filesystem/std::experimental::filesystem::absolute", "filesystem/std::experimental::filesystem::begin", "filesystem/std::experimental::filesystem::canonical", "filesystem/std::experimental::filesystem::copy", "filesystem/std::experimental::filesystem::copy_file", "filesystem/std::experimental::filesystem::copy_symlink", "filesystem/std::experimental::filesystem::create_directories", "filesystem/std::experimental::filesystem::create_directory", "filesystem/std::experimental::filesystem::create_directory_symlink", "filesystem/std::experimental::filesystem::create_hard_link", "filesystem/std::experimental::filesystem::create_symlink", "filesystem/std::experimental::filesystem::current_path", "filesystem/std::experimental::filesystem::end", "filesystem/std::experimental::filesystem::equivalent", "filesystem/std::experimental::filesystem::exists", "filesystem/std::experimental::filesystem::file_size", "filesystem/std::experimental::filesystem::hard_link_count", "filesystem/std::experimental::filesystem::hash_value", "filesystem/std::experimental::filesystem::is_block_file", "filesystem/std::experimental::filesystem::is_character_file", "filesystem/std::experimental::filesystem::is_directory", "filesystem/std::experimental::filesystem::is_empty", "filesystem/std::experimental::filesystem::is_fifo", "filesystem/std::experimental::filesystem::is_other", "filesystem/std::experimental::filesystem::is_regular_file", "filesystem/std::experimental::filesystem::is_socket", "filesystem/std::experimental::filesystem::is_symlink", "filesystem/std::experimental::filesystem::last_write_time", "filesystem/std::experimental::filesystem::permissions", "filesystem/std::experimental::filesystem::read_symlink", "filesystem/std::experimental::filesystem::remove", "filesystem/std::experimental::filesystem::remove_all", "filesystem/std::experimental::filesystem::rename", "filesystem/std::experimental::filesystem::resize_file", "filesystem/std::experimental::filesystem::space", "filesystem/std::experimental::filesystem::status", "filesystem/std::experimental::filesystem::status_known", "filesystem/std::experimental::filesystem::swap", "filesystem/std::experimental::filesystem::symlink_status", "filesystem/std::experimental::filesystem::system_complete", "filesystem/std::experimental::filesystem::temp_directory_path", "filesystem/std::experimental::filesystem::u8path"]
+helpviewer_keywords: ["std::experimental::filesystem::absolute", "std::experimental::filesystem::begin", "std::experimental::filesystem::canonical", "std::experimental::filesystem::copy", "std::experimental::filesystem::copy_file", "std::experimental::filesystem::copy_symlink", "std::experimental::filesystem::create_directories", "std::experimental::filesystem::create_directory", "std::experimental::filesystem::create_directory_symlink", "std::experimental::filesystem::create_hard_link", "std::experimental::filesystem::create_symlink", "std::experimental::filesystem::current_path", "std::experimental::filesystem::end", "std::experimental::filesystem::equivalent", "std::experimental::filesystem::exists", "std::experimental::filesystem::file_size", "std::experimental::filesystem::hard_link_count", "std::experimental::filesystem::hash_value", "std::experimental::filesystem::is_block_file", "std::experimental::filesystem::is_character_file", "std::experimental::filesystem::is_directory", "std::experimental::filesystem::is_empty", "std::experimental::filesystem::is_fifo", "std::experimental::filesystem::is_other", "std::experimental::filesystem::is_regular_file", "std::experimental::filesystem::is_socket", "std::experimental::filesystem::is_symlink", "std::experimental::filesystem::last_write_time", "std::experimental::filesystem::permissions", "std::experimental::filesystem::read_symlink", "std::experimental::filesystem::remove", "std::experimental::filesystem::remove_all", "std::experimental::filesystem::rename", "std::experimental::filesystem::resize_file", "std::experimental::filesystem::space", "std::experimental::filesystem::status", "std::experimental::filesystem::status_known", "std::experimental::filesystem::swap", "std::experimental::filesystem::symlink_status", "std::experimental::filesystem::system_complete", "std::experimental::filesystem::temp_directory_path", "std::experimental::filesystem::u8path"]
 ---
-# `<filesystem>` functions
+# `<experimental/filesystem>` functions
 
-These free functions in the C++17 [`<filesystem>`](../standard-library/filesystem.md) header perform modifying and query operations on paths, files, symlinks, directories, and volumes. For more information and code examples, see [File System Navigation (C++)](../standard-library/file-system-navigation.md).
+> [!IMPORTANT]
+> The `<experimental/filesystem>` header and the `std::experimental::filesystem` namespace provided a prestandard implementation of the File System Technical Specification (TS). This documentation is retained for code written against MSVC's original filesystem implementation, which was removed starting in MSVC version 14.51. For new code, use the C++17 [`<filesystem>`](../standard-library/filesystem.md) header and the `std::filesystem` namespace instead. For the standard equivalents of these functions, see [`<filesystem>` functions](../standard-library/filesystem-functions.md).
 
-> [!NOTE]
-> This article documents the C++17 `std::filesystem` functions. For the historical prestandard functions that MSVC provided in `<experimental/filesystem>`, see [`<experimental/filesystem>` functions](../standard-library/experimental-filesystem-functions.md).
+These free functions in the `<experimental/filesystem>` header do modifying and query operations on paths, files, symlinks, directories, and volumes. For more information and code examples, see [File System Navigation (C++)](../standard-library/file-system-navigation.md).
 
 ## Requirements
 
-**Header:** `<filesystem>`
+**Header:** `<experimental/filesystem>`
 
-**Namespace:** `std::filesystem`
+**Namespace:** `std::experimental::filesystem`
 
 ## <a name="absolute"></a> `absolute`
 
 ```cpp
-path absolute(const path& pval);
-path absolute(const path& pval, error_code& ec);
+path absolute(const path& pval, const path& base = current_path());
 ```
 
-The functions compose an absolute path that refers to the same file system location as *`pval`*, according to operating-system semantics. The overload that takes *`ec`* returns `path()` if an error occurs.
+The function returns the absolute pathname corresponding to *`pval`* relative to the pathname `base`:
+
+1. If `pval.has_root_name() && pval.has_root_directory()` the function returns *`pval`*.
+
+1. If `pval.has_root_name() && !pval.has_root_directory()` the function returns `pval.root_name()` / `absolute(base).root_directory()` / `absolute(base).relative_path()` / `pval.relative_path()`.
+
+1. If `!pval.has_root_name() && pval.has_root_directory()` the function returns `absolute(base).root_name()` / *`pval`*.
+
+1. If `!pval.has_root_name() && !pval.has_root_directory()` the function returns `absolute(base)` / *`pval`*.
 
 ## <a name="begin"></a> `begin`
 
 ```cpp
-directory_iterator begin(directory_iterator iter) noexcept;
-recursive_directory_iterator begin(recursive_directory_iterator iter) noexcept;
+const directory_iterator& begin(const directory_iterator& iter) noexcept;
+const recursive_directory_iterator&
+    begin(const recursive_directory_iterator& iter) noexcept;
 ```
 
-Both functions return *`iter`*. Together with `end`, they enable range-based `for` loops over a `directory_iterator` or `recursive_directory_iterator`.
+Both functions return *`iter`*.
 
 ## <a name="canonical"></a> `canonical`
 
 ```cpp
-path canonical(const path& pval);
+path canonical(const path& pval, const path& base = current_path());
 path canonical(const path& pval, error_code& ec);
+path canonical(const path& pval, const path& base, error_code& ec);
 ```
 
-The functions convert *`pval`*, which must exist, to an absolute path that refers to the same file system object and has no symbolic-link, dot, or dot-dot elements. The overload that takes *`ec`* returns `path()` if an error occurs.
+The functions all form an absolute pathname `pabs = absolute(pval, base)` (or `pabs = absolute(pval)` for the overload with no base parameter), then reduce it to a canonical form in the following sequence of steps:
+
+1. Replace every path component `X` for which `is_symlink(X)` is **`true`** with `read_symlink(X)`.
+
+1. Remove every path component `.` (dot is the current directory established by previous path components).
+
+1. Remove every pair of path components `X`/`..` (dot-dot is the parent directory established by previous path components).
+
+The function then returns `pabs`.
 
 ## <a name="copy"></a> `copy`
 
@@ -54,7 +71,7 @@ void copy(const path& from, const path& to, copy_options opts);
 void copy(const path& from, const path& to, copy_options opts, error_code& ec) noexcept;
 ```
 
-The functions all possibly copy or link one or more files at *from* to *to* under control of *`opts`*, which is taken as `copy_options::none` for the overloads with no *`opts`* parameter. *`opts`* shall contain at most one of:
+The functions all possibly copy or link one or more files at `from` to `to` under control of *`opts`*, which is taken as `copy_options::none` for the overloads with no *`opts`* parameter. *`opts`* shall contain at most one of:
 
 - `skip_existing`, `overwrite_existing`, or `update_existing`
 
@@ -62,11 +79,10 @@ The functions all possibly copy or link one or more files at *from* to *to* unde
 
 - `directories_only`, `create_symlinks`, or `create_hard_links`
 
-The functions first determine the `file_status` values `f` for *from* and `t` for *to*. They use `symlink_status` when *`opts`* contains `copy_options::create_symlinks`, `copy_options::skip_symlinks`, or `copy_options::copy_symlinks`, as required for the source or destination. Otherwise, they use `status`.
+The functions first determine the `file_status` values `f` for `from` and `t` for `to`. They use `symlink_status` when *`opts`* contains `copy_options::create_symlinks`, `copy_options::skip_symlinks`, or `copy_options::copy_symlinks`, as required for the source or destination. Otherwise, they use `status`.
 
-If `!exists(f) || equivalent(f, t) || is_other(f) || is_other(t) || is_directory(f)&& is_regular_file(t)`, they then report an error (and do nothing else).
+If `!exists(f) || equivalent(f, t) || is_other(f) || is_other(t) || is_directory(f)&& is_regular_file(t)`, the functions report an error and stop. Otherwise, if `is_symlink(f)`, then:
 
-Otherwise, if `is_symlink(f)` then:
 
 - If `options & copy_options::skip_symlinks`, then do nothing.
 
@@ -111,13 +127,13 @@ bool copy_file(const path& from, const path& to, copy_options opts);
 bool copy_file(const path& from, const path& to, copy_options opts, error_code& ec) noexcept;
 ```
 
-The functions all possibly copy the file at *from* to *to* under control of *`opts`*, which is taken as `copy_options::none` for the overloads with no *`opts`* parameter. *`opts`* shall contain at most one of `skip_existing`, `overwrite_existing`, or `update_existing`.
+The functions all possibly copy the file at `from` to `to` under control of *`opts`*, which is taken as `copy_options::none` for the overloads with no *`opts`* parameter. *`opts`* shall contain at most one of `skip_existing`, `overwrite_existing`, or `update_existing`.
 
 If `exists(to) && !(opts & (copy_options::skip_existing | copy_options::overwrite_existing | copy_options::update_existing))`, then report as an error that the file already exists.
 
-Otherwise, if `!exists(to) || opts & copy_options::overwrite_existing || opts & copy_options::update_existing&& last_write_time(to) < last_write_time(from) || !(opts & (copy_options::skip_existing | copy_options::overwrite_existing | copy_options::update_existing))`, then attempt to copy the contents and attributes of the file *from* to the file *to*. Report as an error if the copy attempt fails.
+Otherwise, if `!exists(to) || opts & copy_options::overwrite_existing || opts & copy_options::update_existing&& last_write_time(to) < last_write_time(from) || !(opts & (copy_options::skip_existing | copy_options::overwrite_existing | copy_options::update_existing))`, then attempt to copy the contents and attributes of the file `from` to the file `to`. Report as an error if the copy attempt fails.
 
-The functions return **`true`** if the copy is attempted and succeeds, otherwise **`false`**.
+The functions return **`true`** if the copy is successful, and **`false`** otherwise.
 
 ## <a name="copy_symlink"></a> `copy_symlink`
 
@@ -135,7 +151,7 @@ bool create_directories(const path& pval);
 bool create_directories(const path& pval, error_code& ec) noexcept;
 ```
 
-For a pathname such as `a\/b\/c`, the function creates directories `a` and `a\/b` as needed so that it can create the directory `a\/b\/c` as needed. It returns **`true`** only if it actually creates the directory *`pval`*.
+For a pathname such as `a\/b\/c`, the function creates directories `a` and `a\/b` as needed so that it can create the directory `a\/b\/c`. It returns **`true`** only if it actually creates the directory *`pval`*.
 
 ## <a name="create_directory"></a> `create_directory`
 
@@ -147,7 +163,7 @@ bool create_directory(const path& pval, const path& attr);
 bool create_directory(const path& pval, const path& attr, error_code& ec) noexcept;
 ```
 
-The function creates the directory *`pval`* as needed. It returns `true` only if it actually creates the directory *`pval`*, in which case it copies permissions from the existing file *`attr`*, or uses `perms::all` for the overloads with no *`attr`* parameter.
+The function creates the directory *`pval`* as needed. It returns `true` only if it actually creates the directory *`pval`*. If you specify the `attr` parameter, the function copies permissions from the existing file. If you don't specify the `attr` parameter, the function uses `perms::all`.
 
 ## <a name="create_directory_symlink"></a> `create_directory_symlink`
 
@@ -156,7 +172,7 @@ void create_directory_symlink(const path& to, const path& link);
 void create_directory_symlink(const path& to, const path& link, error_code& ec) noexcept;
 ```
 
-The function creates link as a symlink to the directory *to*.
+The function creates *`link`* as a symlink to the directory `to`.
 
 ## <a name="create_hard_link"></a> `create_hard_link`
 
@@ -165,7 +181,7 @@ void create_hard_link(const path& to,  const path& link);
 void create_hard_link(const path& to, const path& link, error_code& ec) noexcept;
 ```
 
-The function creates link as a hard link to the directory or file *to*.
+The function creates *`link`* as a hard link to the directory or file `to`.
 
 ## <a name="create_symlink"></a> `create_symlink`
 
@@ -175,7 +191,7 @@ void create_symlink(const path& to, const path& link);
 void create_symlink(const path& to, const path& link, error_code& ec) noexcept;
 ```
 
-The function creates *`link`* as a symlink to the file *to*.
+The function creates *`link`* as a symlink to the file `to`.
 
 ## <a name="current_path"></a> `current_path`
 
@@ -204,7 +220,7 @@ bool equivalent(const path& left, const path& right);
 bool equivalent(const path& left, const path& right, error_code& ec) noexcept;
 ```
 
-The functions return **`true`** only if *left* and *right* choose the same filesystem entity.
+The functions return **`true`** only if *left* and *right* refer to the same filesystem entity.
 
 ## <a name="exists"></a> `exists`
 
@@ -279,7 +295,7 @@ bool is_empty(const path& pval);
 bool is_empty(const path& pval, error_code& ec) noexcept;
 ```
 
-If `is_directory(pval)`, then the function returns `directory_iterator(pval) == directory_iterator()`; otherwise it returns `file_size(pval) == 0`.
+If `is_directory(pval)`, the function returns `directory_iterator(pval) == directory_iterator()`. Otherwise, it returns `file_size(pval) == 0`.
 
 ## <a name="is_fifo"></a> `is_fifo`
 
@@ -345,24 +361,13 @@ The first two functions return the time of last data modification for *`pval`*, 
 ## <a name="permissions"></a> `permissions`
 
 ```cpp
-void permissions(const path& pval, perms mask, perm_options opts = perm_options::replace);
+void permissions(const path& pval, perms mask);
 void permissions(const path& pval, perms mask, error_code& ec) noexcept;
-void permissions(const path& pval, perms mask, perm_options opts, error_code& ec);
 ```
 
-The functions set the permissions for the pathname chosen by *`pval`* to `mask & perms::mask` under control of *`opts`*. *`opts`* must contain exactly one of `perm_options::replace`, `perm_options::add`, or `perm_options::remove`, and optionally `perm_options::nofollow`. The overloads with no *`opts`* parameter behave as if *`opts`* is `perm_options::replace`.
+The functions set the permissions for the pathname chosen by *`pval`* to `mask & perms::mask` under control of `perms & (perms::add_perms | perms::remove_perms)`. *`mask`* contains at most one of `perms::add_perms` and `perms::remove_perms`.
 
-If `opts & perm_options::add`, the functions set the permissions to `status(pval).permissions() | (mask & perms::mask)`. Otherwise, if `opts & perm_options::remove`, the functions set the permissions to `status(pval).permissions() & ~(mask & perms::mask)`. Otherwise, the functions set the permissions to `mask & perms::mask`. If `opts & perm_options::nofollow` and *`pval`* names a symbolic link, the functions change the permissions of the symbolic link itself rather than the file it resolves to.
-
-## <a name="proximate"></a> `proximate`
-
-```cpp
-path proximate(const path& p, error_code& ec);
-path proximate(const path& p, const path& base = current_path());
-path proximate(const path& p, const path& base, error_code& ec);
-```
-
-The first overload returns `proximate(p, current_path(), ec)`. The other overloads return the result of applying `lexically_proximate` to the weakly canonical forms of *`p`* and *`base`*. The overload that takes *`ec`* returns `path()` if an error occurs.
+If `mask & perms::add_perms`, the functions set the permissions to `status(pval).permissions() | mask & perms::mask`. Otherwise, if `mask & perms::remove_perms`, the functions set the permissions to `status(pval).permissions() & ~(mask & perms::mask)`. Otherwise, the functions set the permissions to `mask & perms::mask`.
 
 ## <a name="read_symlink"></a> `read_symlink`
 
@@ -372,16 +377,6 @@ path read_symlink(const path& pval, error_code& ec);
 ```
 
 The functions report an error and return `path()` if `!is_symlink(pval)`. Otherwise, the functions return an object of type `path` containing the symbolic link.
-
-## <a name="relative"></a> `relative`
-
-```cpp
-path relative(const path& p, error_code& ec);
-path relative(const path& p, const path& base = current_path());
-path relative(const path& p, const path& base, error_code& ec);
-```
-
-The first overload returns `relative(p, current_path(), ec)`. The other overloads return the result of applying `lexically_relative` to the weakly canonical forms of *`p`* and *`base`*. The overload that takes *`ec`* returns `path()` if an error occurs.
 
 ## <a name="remove"></a> `remove`
 
@@ -408,7 +403,7 @@ void rename(const path& from, const path& to);
 void rename(const path& from, const path& to, error_code& ec) noexcept;
 ```
 
-The functions rename *from* to *to*. A symlink is itself renamed, not the file it chooses.
+The functions rename `from` to `to`. A symlink is itself renamed, not the file it chooses.
 
 ## <a name="resize_file"></a> `resize_file`
 
@@ -462,6 +457,18 @@ file_status symlink_status(const path& pval, error_code& ec) noexcept;
 
 The functions return the pathname symlink status, the file type, and permissions, associated with *`pval`*. The functions behave the same as `status(pval)` except that a symlink is itself tested, not the file it chooses.
 
+## <a name="system_complete"></a> `system_complete`
+
+> [!NOTE]
+> C++17 `std::filesystem` doesn't provide `system_complete`. For current code, use [`std::filesystem::absolute`](../standard-library/filesystem-functions.md#absolute) when it provides the required behavior.
+
+```cpp
+path system_complete(const path& pval);
+path system_complete(const path& pval, error_code& ec);
+```
+
+The functions return an absolute pathname that takes into account, as necessary, the current directory associated with its root name. For POSIX, the functions return `absolute(pval)`.
+
 ## <a name="temp_directory_path"></a> `temp_directory_path`
 
 ```cpp
@@ -483,17 +490,8 @@ path u8path(InIt first, InIt last);
 
 The first function behaves the same as `path(source)` and the second function behaves the same as `path(first, last)` except that the chosen source in each case is taken as a sequence of char elements encoded as UTF-8, whatever the filesystem.
 
-## <a name="weakly_canonical"></a> `weakly_canonical`
-
-```cpp
-path weakly_canonical(const path& p);
-path weakly_canonical(const path& p, error_code& ec);
-```
-
-These functions return a path in canonical form, like the `canonical` function, but the path doesn't need to exist.
-
 ## See also
 
-[Header Files Reference](../standard-library/cpp-standard-library-header-files.md)\
-[`<filesystem>`](../standard-library/filesystem.md)\
-[File System Navigation (C++)](../standard-library/file-system-navigation.md)
+[`<experimental/filesystem>`](../standard-library/experimental-filesystem.md)\
+[`<experimental/filesystem>` enumerations](../standard-library/experimental-filesystem-enumerations.md)\
+[`<experimental/filesystem>` operators](../standard-library/experimental-filesystem-operators.md)

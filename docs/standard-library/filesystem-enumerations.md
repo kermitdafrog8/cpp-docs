@@ -1,19 +1,22 @@
 ---
 description: "Learn more about: <filesystem> enumerations"
 title: "<filesystem> enumerations"
-ms.date: "11/04/2016"
-f1_keywords: ["filesystem/std::filesystem::copy_options", "filesystem/std::experimental::filesystem::copy_options", "filesystem/std::filesystem::directory_options", "filesystem/std::experimental::filesystem::directory_options", "filesystem/std::filesystem::file_type", "filesystem/std::experimental::filesystem::file_type", "filesystem/std::filesystem::perms", "filesystem/std::experimental::filesystem::perms"]
-ms.assetid: 0096c046-d101-464c-8259-b878a48280b0
+ms.date: 08/27/2026
+f1_keywords: ["filesystem/std::filesystem::copy_options", "filesystem/std::filesystem::directory_options", "filesystem/std::filesystem::file_type", "filesystem/std::filesystem::perm_options", "filesystem/std::filesystem::perms"]
+helpviewer_keywords: ["std::filesystem::copy_options", "std::filesystem::directory_options", "std::filesystem::file_type", "std::filesystem::perm_options", "std::filesystem::perms"]
 ---
 # `<filesystem>` enumerations
 
-This topic documents the enums in the filesystem header.
+This article documents the enumerations in the C++17 `std::filesystem` implementation of the [`<filesystem>`](../standard-library/filesystem.md) header.
+
+> [!NOTE]
+> This page documents the C++17 `std::filesystem` enumerations. For the historical prestandard enumerations that MSVC provided in `<experimental/filesystem>`, see [`<experimental/filesystem>` enumerations](../standard-library/experimental-filesystem-enumerations.md).
 
 ## Requirements
 
-**Header:** \<experimental/filesystem>
+**Header:** `<filesystem>`
 
-**Namespace:** std::experimental::filesystem
+**Namespace:** `std::filesystem`
 
 ## <a name="copy_options"></a> copy_options
 
@@ -53,14 +56,15 @@ enum class copy_options {
 
 ## <a name="directory_options"></a> directory_options
 
-Specifies whether to follow symbolic links to directories or to ignore them.
+A bitmask enumeration that controls how directory iteration handles symbolic links to directories and permission-denied errors.
 
 ### Syntax
 
 ```cpp
 enum class directory_options {
    none = 0,
-   follow_directory_symlink
+   follow_directory_symlink = 1,
+   skip_permission_denied = 2
 };
 ```
 
@@ -68,19 +72,20 @@ enum class directory_options {
 
 |Name|Description|
 |----------|-----------------|
-|`none`|Default behavior: ignore symbolic links to directories. Permission denied is an error.|
-|`follow_directory_symlink`|Treat symbolic links to directories as actual directories.|
+|`none`|Default behavior: don't follow symbolic links to directories, and treat permission denied as an error.|
+|`follow_directory_symlink`|Follow symbolic links to directories rather than skipping them.|
+|`skip_permission_denied`|Silently skip directories that would otherwise result in a permission-denied error.|
 
 ## <a name="file_type"></a> file_type
 
-An enumeration for file types. The supported values are regular, directory, not_found, and unknown.
+An enumeration for file types.
 
 ### Syntax
 
 ```cpp
 enum class file_type {
-    not_found = -1,
-    none,
+    none = 0,
+    not_found,
     regular,
     directory,
     symlink,
@@ -92,32 +97,50 @@ enum class file_type {
 };
 ```
 
+The C++ standard doesn't fix the underlying integer values of these enumerators, so don't depend on specific numeric values.
+
 ### Values
 
-|Name|Value|Description|
-|----------|-----------|-----------------|
-|`not_found`|-1|Represents a file that does not exist.|
-|`none`|0|Represents a file that has no type attribute. (Not supported.)|
-|`regular`|1|Represents a conventional disk file.|
-|`directory`|2|Represents a directory.|
-|`symlink`|3|Represents a symbolic link. (Not supported.)|
-|`block`|4|Represents a block-special file on UNIX-based systems. (Not supported.)|
-|`character`|5|Represents a character-special file on UNIX-based systems. (Not supported.)|
-|`fifo`|6|Represents a FIFO file on UNIX-based systems. (Not supported.)|
-|`socket`|7|Represents a socket on UNIX based systems. (Not supported.)|
-|`unknown`|8|Represents a file whose status cannot be determined.|
+|Name|Description|
+|----------|-----------------|
+|`none`|The file type hasn't been evaluated yet, or an error occurred when evaluating it.|
+|`not_found`|The file wasn't found.|
+|`regular`|A regular file.|
+|`directory`|A directory.|
+|`symlink`|A symbolic link.|
+|`block`|A block-special file. (Not used on Windows.)|
+|`character`|A character-special file. (Not used on Windows.)|
+|`fifo`|A FIFO or pipe file. (Not used on Windows.)|
+|`socket`|A socket. (Not used on Windows.)|
+|`unknown`|The file exists but its type can't be determined.|
 
 ## <a name="perm_options"></a> perm_options
 
-Includes values `replace`, `add`, `remove`, and `nofollow`.
+A bitmask enumeration that controls how the [`permissions`](../standard-library/filesystem-functions.md#permissions) function applies permission bits.
+
+### Syntax
 
 ```cpp
-enum class perm_options;
+enum class perm_options {
+   replace = 1,
+   add = 2,
+   remove = 4,
+   nofollow = 8
+};
 ```
+
+### Values
+
+|Name|Description|
+|----------|-----------------|
+|`replace`|Replace the file's permission bits with the specified permissions.|
+|`add`|Add the specified permission bits to the file's current permissions.|
+|`remove`|Remove the specified permission bits from the file's current permissions.|
+|`nofollow`|Change the permissions of a symbolic link itself rather than the file it resolves to.|
 
 ## <a name="perms"></a> perms
 
-Flags for file permissions. The supported values are essentially "readonly" and all. For a readonly file, none of the *_write bits are set. Otherwise the `all` bit (0x0777) is set.
+A bitmask enumeration of file permission bits. On Windows, the supported values are essentially "read-only" and `all`. For a read-only file, none of the `*_write` bits are set. Otherwise, the `all` bit (0777) is set.
 
 ### Syntax
 
@@ -141,10 +164,7 @@ enum class perms {// names for permissions
    set_gid = 02000,    // S_ISGID
    sticky_bit = 01000, // S_ISVTX
    mask = 07777,
-   unknown = 0xFFFF,
-   add_perms = 0x10000,
-   remove_perms = 0x20000,
-   resolve_symlinks = 0x40000
+   unknown = 0xFFFF
 };
 ```
 

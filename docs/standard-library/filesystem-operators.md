@@ -1,15 +1,24 @@
 ---
 description: "Learn more about: <filesystem> operators"
 title: "<filesystem> operators"
-ms.date: "11/04/2016"
-f1_keywords: ["FILESYSTEM/std::experimental::filesystem::operator==", "FILESYSTEM/std::experimental::filesystem::operator!=", "FILESYSTEM/std::experimental::filesystem::operator<", "FILESYSTEM/std::experimental::filesystem::operator<=", "FILESYSTEM/std::experimental::filesystem::operator>", "FILESYSTEM/std::experimental::filesystem::operator>=", "FILESYSTEM/std::experimental::filesystem::operator/", "FILESYSTEM/std::experimental::filesystem::operator<<", "FILESYSTEM/std::experimental::filesystem::operator>>"]
-ms.assetid: 102c4833-aa3b-41a8-8998-f5003c546bfd
+ms.date: 08/27/2026
+f1_keywords: ["filesystem/std::filesystem::operator==", "filesystem/std::filesystem::operator!=", "filesystem/std::filesystem::operator<", "filesystem/std::filesystem::operator<=", "filesystem/std::filesystem::operator>", "filesystem/std::filesystem::operator>=", "filesystem/std::filesystem::operator/", "filesystem/std::filesystem::operator<<", "filesystem/std::filesystem::operator>>"]
+helpviewer_keywords: ["std::filesystem::operator==", "std::filesystem::operator!=", "std::filesystem::operator<", "std::filesystem::operator<=", "std::filesystem::operator>", "std::filesystem::operator>=", "std::filesystem::operator/", "std::filesystem::operator<<", "std::filesystem::operator>>"]
 ---
 # `<filesystem>` operators
 
-The operators perform a lexical comparison of two paths as strings. Use the `equivalent` function to determine whether two paths (for example a relative path and an absolute path) refer to the same file or directory on disk.
+These nonmember operators for [`std::filesystem::path`](../standard-library/path-class.md) are declared in the C++17 [`<filesystem>`](../standard-library/filesystem.md) header. The comparison operators compare two paths element by element in generic format by using `path::compare`, not as raw strings. Use the [`equivalent`](../standard-library/filesystem-functions.md#equivalent) function to determine whether two paths (for example, a relative path and an absolute path) refer to the same file or directory on disk.
+
+> [!NOTE]
+> This page documents the C++17 `std::filesystem` operators. For the historical prestandard operators that MSVC provided in `<experimental/filesystem>`, see [`<experimental/filesystem>` operators](../standard-library/experimental-filesystem-operators.md).
 
 For more information, see [File System Navigation (C++)](../standard-library/file-system-navigation.md).
+
+## Requirements
+
+**Header:** `<filesystem>`
+
+**Namespace:** `std::filesystem`
 
 ## operator==
 
@@ -17,7 +26,7 @@ For more information, see [File System Navigation (C++)](../standard-library/fil
 bool operator==(const path& left, const path& right) noexcept;
 ```
 
-The function returns left.native() == right.native().
+The function returns `left.compare(right) == 0`.
 
 ## operator!=
 
@@ -25,7 +34,7 @@ The function returns left.native() == right.native().
 bool operator!=(const path& left, const path& right) noexcept;
 ```
 
-The function returns !(left == right).
+The function returns `!(left == right)`.
 
 ## operator<
 
@@ -33,7 +42,7 @@ The function returns !(left == right).
 bool operator<(const path& left, const path& right) noexcept;
 ```
 
-The function returns left.native() < right.native().
+The function returns `left.compare(right) < 0`.
 
 ## operator<=
 
@@ -41,7 +50,7 @@ The function returns left.native() < right.native().
 bool operator<=(const path& left, const path& right) noexcept;
 ```
 
-The function returns !(right \< left).
+The function returns `!(right < left)`.
 
 ## operator>
 
@@ -49,7 +58,7 @@ The function returns !(right \< left).
 bool operator>(const path& left, const path& right) noexcept;
 ```
 
-The function returns right \< left.
+The function returns `right < left`.
 
 ## operator>=
 
@@ -57,7 +66,7 @@ The function returns right \< left.
 bool operator>=(const path& left, const path& right) noexcept;
 ```
 
-The function returns !(left < right).
+The function returns `!(left < right)`.
 
 ## operator/
 
@@ -65,13 +74,7 @@ The function returns !(left < right).
 path operator/(const path& left, const path& right);
 ```
 
-The function executes:
-
-```cpp
-basic_string<Elem, Traits> str;
-path ans = left;
-return (ans /= right);
-```
+The function returns `path(left) /= right`.
 
 ## operator<<
 
@@ -80,20 +83,26 @@ template <class Elem, class Traits>
 basic_ostream<Elem, Traits>& operator<<(basic_ostream<Elem, Traits>& os, const path& pval);
 ```
 
-The function returns os << pval.string\<Elem, Traits>().
+The function inserts the path into the stream as a quoted string. It returns `os << quoted(pval.string<Elem, Traits>())`.
 
 ## operator>>
 
 ```cpp
 template <class Elem, class Traits>
-basic_istream<Elem, Traits>& operator<<(basic_istream<Elem, Traits>& is, const path& pval);
+basic_istream<Elem, Traits>& operator>>(basic_istream<Elem, Traits>& is, path& pval);
 ```
 
-The function executes:
+The function extracts a quoted string from the stream and assigns it to *`pval`*. It executes:
 
 ```cpp
 basic_string<Elem, Traits> str;
-is>> str;
+is >> quoted(str);
 pval = str;
-return (is);
+return is;
 ```
+
+## See also
+
+[Header Files Reference](../standard-library/cpp-standard-library-header-files.md)\
+[`<filesystem>`](../standard-library/filesystem.md)\
+[File System Navigation (C++)](../standard-library/file-system-navigation.md)
