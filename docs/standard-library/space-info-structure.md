@@ -1,9 +1,8 @@
 ---
 description: "Learn more about: space_info Structure"
 title: "space_info Structure"
-ms.date: "09/10/2018"
-f1_keywords: ["filesystem/std::tr2::sys::space_info"]
-ms.assetid: f2b35b42-06ff-45bd-8617-39a0f5358a54
+ms.date: 08/27/2026
+f1_keywords: ["filesystem/std::filesystem::space_info"]
 ---
 # space_info Structure
 
@@ -26,15 +25,15 @@ struct space_info
 
 |Name|Description|
 |----------|-----------------|
-|`unsigned long long capacity`|Represents the total number of bytes that the volume can represent.|
-|`unsigned long long free`|Represents the number of bytes that are not used to represent data on the volume.|
-|`unsigned long long available`|Represents the number of bytes that are available to represent data on the volume.|
+|`uintmax_t capacity`|Represents the total number of bytes that the volume can represent.|
+|`uintmax_t free`|Represents the number of bytes that are not used to represent data on the volume.|
+|`uintmax_t available`|Represents the number of bytes that are available to represent data on the volume.|
 
 ## Requirements
 
 **Header:** \<filesystem>
 
-**Namespace:** std::experimental::filesystem
+**Namespace:** std::filesystem
 
 ## See also
 

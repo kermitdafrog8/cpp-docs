@@ -1,16 +1,17 @@
 ---
-description: "Learn more about: recursive_directory_iterator Class"
-title: "recursive_directory_iterator Class"
+description: "Learn more about: <experimental/filesystem> recursive_directory_iterator class"
+title: "<experimental/filesystem> recursive_directory_iterator class"
 ms.date: 08/27/2026
-f1_keywords: ["filesystem/std::filesystem::recursive_directory_iterator"]
-ms.custom: devdivchpfy22
+f1_keywords: ["filesystem/std::experimental::filesystem::recursive_directory_iterator"]
+helpviewer_keywords: ["std::experimental::filesystem::recursive_directory_iterator"]
 ---
 
-# recursive_directory_iterator Class
+# `<experimental/filesystem>` `recursive_directory_iterator` class
 
-Describes an input iterator that sequences through the filenames in a directory, possibly descending into subdirectories recursively. For an iterator `X`, the expression `*X` evaluates to an object of class `directory_entry` that wraps the filename and anything known about its status.
+> [!IMPORTANT]
+> This article describes the `recursive_directory_iterator` class from the prestandard `<experimental/filesystem>` implementation of the ISO C++ Filesystem Technical Specification (N4100). This API isn't the same as the C++17 [`recursive_directory_iterator`](recursive-directory-iterator-class.md) class in `<filesystem>`. It uses different signatures, including a `noexcept` `increment` and a single-form `pop` with no `error_code` overload. The experimental implementation was removed starting with the Microsoft Visual C++ (MSVC) 14.51 toolset. New code should use the C++17 [`recursive_directory_iterator`](recursive-directory-iterator-class.md) class instead.
 
-For more information and code examples, see [File System Navigation (C++)](../standard-library/file-system-navigation.md).
+Describes an input iterator that sequences through the filenames in a directory, possibly descending into subdirectories recursively. For an iterator `X`, the expression `*X` returns an object of class `directory_entry` that wraps the filename and anything known about its status.
 
 ## Syntax
 
@@ -20,9 +21,9 @@ class recursive_directory_iterator;
 
 ## Remarks
 
-The class template stores:
+The class stores:
 
-1. an object of type `stack<pair<directory_iterator, path>>`, called `mystack` here for the purposes of exposition, which represents the nest of directories to be sequenced
+1. an object of type `stack<pair<directory_iterator, path>>`, called `mystack` here for the purposes of exposition, which represents the nest of directories to sequence
 
 1. an object of type `directory_entry` called `myentry` here, which represents the current filename in the directory sequence
 
@@ -37,11 +38,11 @@ for (recursive_directory_iterator next(path("abc")), end; next != end; ++next)
     visit(next->path());
 ```
 
-will call visit with the arguments `path("abc/def/ghi")` and `path("abc/jkl")`. You can qualify sequencing through a directory subtree in two ways:
+calls `visit` with the arguments `path("abc/def/ghi")` and `path("abc/jkl")`. You can qualify sequencing through a directory subtree in two ways:
 
-1. A directory symlink will be scanned only if you construct a `recursive_directory_iterator` with a `directory_options` argument whose value is `directory_options::follow_directory_symlink`.
+1. A directory symlink is scanned only if you construct a `recursive_directory_iterator` with a `directory_options` argument whose value is `directory_options::follow_directory_symlink`.
 
-1. If you call `disable_recursion_pending`, a subsequent directory encountered during an increment won't be recursively scanned.
+1. If you call `disable_recursion_pending`, a subsequent directory encountered during an increment isn't recursively scanned.
 
 ### Constructors
 
@@ -73,9 +74,9 @@ will call visit with the arguments `path("abc/def/ghi")` and `path("abc/jkl")`. 
 
 ## Requirements
 
-**Header:** `<filesystem>`
+**Header:** `<experimental/filesystem>`
 
-**Namespace:** `std::filesystem`
+**Namespace:** `std::experimental::filesystem`
 
 ## <a name="depth"></a> recursive_directory_iterator::depth
 
@@ -98,12 +99,12 @@ void disable_recursion_pending();
 Advances to the next filename in sequence.
 
 ```cpp
-recursive_directory_iterator& increment(error_code& ec);
+recursive_directory_iterator& increment(error_code& ec) noexcept;
 ```
 
 ### Parameters
 
-*ec*\
+`ec`\
 Specified error code.
 
 ### Remarks
@@ -121,7 +122,7 @@ bool operator!=(const recursive_directory_iterator& right) const;
 ### Parameters
 
 *right*\
-The [recursive_directory_iterator](../standard-library/recursive-directory-iterator-class.md) for comparison.
+The `recursive_directory_iterator` for comparison.
 
 ## <a name="op_as"></a> recursive_directory_iterator::operator=
 
@@ -129,17 +130,17 @@ The defaulted member assignment operators behave as expected.
 
 ```cpp
 recursive_directory_iterator& operator=(const recursive_directory_iterator&) = default;
-recursive_directory_iterator& operator=(recursive_directory_iterator&&) noexcept = default;
+recursive_directory_iterator& operator=(recursive_directory_iterator&&) = default;
 ```
 
 ### Parameters
 
 *recursive_directory_iterator*\
-The [recursive_directory_iterator](../standard-library/recursive-directory-iterator-class.md) being copied into the `recursive_directory_iterator`.
+The `recursive_directory_iterator` being copied into the `recursive_directory_iterator`.
 
 ## <a name="op_eq"></a> recursive_directory_iterator::operator==
 
-Returns **`true`** only if both **`*this`** and *right* are end-of-sequence iterators or both aren't end-of-sequence-iterators.
+Returns **`true`** only if both **`*this`** and *right* are end-of-sequence iterators or both aren't end-of-sequence iterators.
 
 ```cpp
 bool operator==(const recursive_directory_iterator& right) const;
@@ -148,7 +149,7 @@ bool operator==(const recursive_directory_iterator& right) const;
 ### Parameters
 
 *right*\
-The [recursive_directory_iterator](../standard-library/recursive-directory-iterator-class.md) for comparison.
+The `recursive_directory_iterator` for comparison.
 
 ## <a name="op_multiply"></a> recursive_directory_iterator::operator*
 
@@ -172,6 +173,7 @@ Increments the `recursive_directory_iterator`.
 
 ```cpp
 recursive_directory_iterator& operator++();
+
 recursive_directory_iterator operator++(int);
 ```
 
@@ -198,17 +200,11 @@ Moves the iterator to the next entry at the next lower depth.
 
 ```cpp
 void pop();
-void pop(error_code& ec);
 ```
-
-### Parameters
-
-`ec`\
-The error code that reports the status of the operation. The overload that takes an *ec* argument reports errors in *ec* instead of throwing an exception.
 
 ### Remarks
 
-If `depth() == 0` the object becomes an end-of-sequence iterator. Otherwise, the member function terminates scanning of the current (deepest) directory and resumes at the next lower depth.
+If `depth() == 0`, the object becomes an end-of-sequence iterator. Otherwise, the member function terminates scanning of the current (deepest) directory and resumes at the next lower depth.
 
 ## <a name="recursion_pending"></a> recursive_directory_iterator::recursion_pending
 
@@ -224,23 +220,21 @@ Constructs a `recursive_directory_iterator`.
 
 ```cpp
 recursive_directory_iterator() noexcept;
-explicit recursive_directory_iterator(const path& pval);
-
-recursive_directory_iterator(const path& pval,
-    error_code& ec) noexcept;
-recursive_directory_iterator(const path& pval,
-    directory_options opts);
+explicit recursive_directory_iterator(const path& pval,
+    directory_options opts = directory_options::none);
 
 recursive_directory_iterator(const path& pval,
     directory_options opts,
     error_code& ec) noexcept;
+recursive_directory_iterator(const path& pval,
+    error_code& ec) noexcept;
 recursive_directory_iterator(const recursive_directory_iterator&) = default;
-recursive_directory_iterator(recursive_directory_iterator&&) noexcept = default;
+recursive_directory_iterator(recursive_directory_iterator&&) = default;
 ```
 
 ### Parameters
 
-*pval*\
+`pval`\
 The specified path.
 
 *error_code*\
@@ -254,12 +248,11 @@ The `recursive_directory_iterator` of which the constructed `recursive_directory
 
 ### Remarks
 
-The first constructor produces an end-of-sequence iterator. The second and third constructors store **`false`** in `no_push` and `directory_options::none` in `myoptions`, then attempt to open and read *pval* as a directory. If successful, they initialize `mystack` and `myentry` to designate the first non-directory filename in the nested sequence; otherwise they produce an end-of-sequence iterator.
+The first constructor creates an end-of-sequence iterator. The second constructor stores **`false`** in `no_push` and *opts* in `myoptions`, then tries to open and read *pval* as a directory. If it succeeds, it initializes `mystack` and `myentry` to point to the first non-directory filename in the nested sequence. If it fails, it creates an end-of-sequence iterator.
 
-The fourth and fifth constructors behave the same as the second and third, except that they first store *opts* in `myoptions`. The default constructor behaves as expected.
+The third and fourth constructors behave the same as the second, except that they report errors in *ec* instead of throwing an exception. The fourth constructor stores `directory_options::none` in `myoptions`. The default constructor behaves as expected.
 
 ## See also
 
-[Header Files Reference](../standard-library/cpp-standard-library-header-files.md)\
-[\<filesystem>](../standard-library/filesystem.md)\
-[File System Navigation (C++)](../standard-library/file-system-navigation.md)
+[`<experimental/filesystem>`](../standard-library/experimental-filesystem.md)\
+[`directory_entry` class](../standard-library/experimental-filesystem-directory-entry-class.md)

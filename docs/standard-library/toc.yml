@@ -8,7 +8,7 @@ items:
       href: cpp-standard-library-header-files.md
     - name: <algorithm>
       expanded: false
-      items: 
+      items:
         - name: <algorithm>
           href: algorithm.md
         - name: <algorithm> functions
@@ -375,6 +375,31 @@ items:
           href: recursive-directory-iterator-class.md
         - name: space_info struct
           href: space-info-structure.md
+    - name: <experimental/filesystem> (removed)
+      expanded: false
+      items:
+        - name: <experimental/filesystem>
+          href: experimental-filesystem.md
+        - name: <experimental/filesystem> functions
+          href: experimental-filesystem-functions.md
+        - name: <experimental/filesystem> operators
+          href: experimental-filesystem-operators.md
+        - name: <experimental/filesystem> enumerations
+          href: experimental-filesystem-enumerations.md
+        - name: directory_entry class
+          href: experimental-filesystem-directory-entry-class.md
+        - name: directory_iterator class
+          href: experimental-filesystem-directory-iterator-class.md
+        - name: file_status class
+          href: experimental-filesystem-file-status-class.md
+        - name: filesystem_error class
+          href: experimental-filesystem-error-class.md
+        - name: path class
+          href: experimental-filesystem-path-class.md
+        - name: recursive_directory_iterator class
+          href: experimental-filesystem-recursive-directory-iterator-class.md
+        - name: space_info struct
+          href: experimental-filesystem-space-info-structure.md
     - name: <forward_list>
       expanded: false
       items: 
