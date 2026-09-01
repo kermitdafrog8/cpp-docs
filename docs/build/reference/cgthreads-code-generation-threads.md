@@ -1,7 +1,7 @@
 ---
 description: "Learn more about: `/cgthreads` (Code generation threads)"
 title: "/cgthreads (Code generation threads)"
-ms.date: 07/31/2020
+ms.date: 09/01/2026
 f1_keywords: ["/cgthreads"]
 helpviewer_keywords: ["/cgthreads compiler option (C++)", "-cgthreads compiler option (C++)", "cgthreads compiler option (C++)", "cgthreads"]
 ---
@@ -11,19 +11,12 @@ Sets number of `cl.exe` threads to use for optimization and code generation.
 
 ## Syntax
 
-> **`/cgthreads1`**\
-> **`/cgthreads2`**\
-> **`/cgthreads3`**\
-> **`/cgthreads4`**\
-> **`/cgthreads5`**\
-> **`/cgthreads6`**\
-> **`/cgthreads7`**\
-> **`/cgthreads8`**
+> **`/cgthreads`**_N_
 
 ## Arguments
 
-**`cgthreadsN`**\
-The maximum number of threads for `cl.exe` to use, where *N* is a number in the range 1 to 8.
+*`N`*\
+The maximum number of threads for `cl.exe` to use, where *N* is a number in the range 1 to 512. For example, **`/cgthreads4`** specifies that `cl.exe` can use up to four threads for optimization and code generation.
 
 ## Remarks
 
@@ -35,7 +28,7 @@ Multiple levels of parallelism can be specified for a build. The msbuild.exe swi
 
 1. Open the project's **Property Pages** dialog box. For details, see [Set C++ compiler and build properties in Visual Studio](../working-with-project-properties.md).
 1. Select the **Configuration Properties** > **C/C++** > **Command Line** property page.
-1. Modify the **Additional Options** property to include **`cgthreadsN`**, where *`N`* is a value from 1 to 8, and then select **OK**.
+1. Modify the **Additional Options** property to include **`cgthreadsN`**, where *`N`* is a value from 1 to 512, and then select **OK**.
 
 ### To set this compiler option programmatically
 
