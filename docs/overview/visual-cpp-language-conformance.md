@@ -1,7 +1,7 @@
 ---
 title: "Microsoft C/C++ language conformance"
 description: "Microsoft C and C++ conformance updates by Visual Studio version."
-ms.date: 03/10/2026
+ms.date: 09/01/2026
 ms.service: "visual-cpp"
 ms.subservice: "cpp-lang"
 ---
@@ -92,6 +92,7 @@ For details on conformance improvements, see [C++ conformance improvements in Vi
 | &emsp;[`P1009R2 Array size deduction in new-expressions`](https://wg21.link/P1009R2) | VS 2019 16.7 <sup>[17](#note_17)</sup> |
 | &emsp;[`P1286R2 Contra CWG DR1778`](https://wg21.link/P1286R2) | VS 2019 16.8 <sup>[17](#note_17)</sup> |
 | **C++20 Core language features** | **Supported** |
+| &emsp;[`P0593R6 Implicit creation of objects for low-level object manipulation`](https://wg21.link/P0593R6) | Yes |
 | &emsp;[`P0641R2 const mismatch with defaulted copy constructor`](https://wg21.link/P0641R2) | VS 2015 <sup>[14](#note_14)</sup> |
 | &emsp;[`P0704R1 Fixing const lvalue ref-qualified pointers to members`](https://wg21.link/p0704r1) | VS 2015 <sup>[14](#note_14)</sup> |
 | &emsp;[`P1041R4 Make char16_t/char32_t string literals be UTF-16/32`](https://wg21.link/P1041R4) | VS 2015 <sup>[14](#note_14)</sup> |
@@ -511,6 +512,7 @@ For the latest information about ongoing conformance work, see:
 | &emsp;[`P2517R1 Conditional noexcept For apply()`](https://wg21.link/p2517r1) | VS 2022 17.4 <sup>[23](#note_23)</sup> |
 | &emsp;[`P2520R0 move_iterator<T*> Should Be A Random-Access Iterator`](https://wg21.link/p2520r0) | VS 2022 17.4 <sup>[23](#note_23)</sup> |
 | &emsp;[`P2549R1 unexpected<E>::error()`](https://wg21.link/p2549r1) | VS 2022 17.3 <sup>[23](#note_23)</sup> |
+| &emsp;[`P2590R2 Explicit lifetime management`](https://wg21.link/P2590R2)<br/>&emsp;[`P2679R2 Fixing start_lifetime_as and start_lifetime_as_array`](https://wg21.link/P2679R2) | MSVC Build Tools version 14.51 <sup>[24](#note_24)</sup> |
 
 A group of papers listed together indicates a Standard feature along with one or more approved improvements or expansions. These features are implemented together.
 
