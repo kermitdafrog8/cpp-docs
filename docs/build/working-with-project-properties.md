@@ -120,7 +120,7 @@ The MSVC compiler (cl.exe) recognizes certain environment variables, specificall
 
 In the left pane of the project's **Property Pages** dialog box, expand **Configuration Properties** and then select **Debugging**.
 
-In the right pane, modify the **Environment** or **Merge Environment** project settings and then choose the **OK** button.
+In the right pane, select **Environment** and then select **Edit**. Enter each environment variable on a separate line by using `NAME=VALUE` syntax. Modify **Merge Environment** if necessary, and then select **OK**.
 
 ## Articles in this section
 
