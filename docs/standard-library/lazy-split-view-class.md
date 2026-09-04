@@ -139,7 +139,7 @@ int main()
     std::vector<int> rg{ 1, 2, 3, 1, 2, 3, 4, 5, 6 };
 
     // pipe syntax using range adaptor
-    for (const auto& subrange : rg | std::views::split(3))
+    for (const auto& subrange : rg | std::views::lazy_split(3))
     {
         // Outputs:
         // 1 2
@@ -153,7 +153,7 @@ int main()
     }
 
     int delimiters[] = {2, 3};
-    for (auto splitRange : std::views::split(rg, delimiters)) // ctor syntax
+    for (auto splitRange : std::views::lazy_split(rg, delimiters)) // range adaptor call syntax
     {
         // outputs 1 1 4 5 6
         for (auto& i : splitRange)
