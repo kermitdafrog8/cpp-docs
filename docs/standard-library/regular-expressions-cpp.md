@@ -82,9 +82,9 @@ In ECMAScript, an element can also be one of the following:
 
 - A limited *file format escape* of the form `\f`, `\n`, `\r`, `\t`, or `\v`. These match a form feed, newline, carriage return, horizontal tab, and vertical tab, respectively, in the target sequence.
 
-- A *positive assert* of the form (= *subexpression*). Matches the sequence of characters in the target sequence that is matched by the pattern between the delimiters, but doesn't change the match position in the target sequence.
+- A *positive assert* of the form `(?=`*subexpression*`)`. Matches the sequence of characters in the target sequence that is matched by the pattern between the delimiters, but doesn't change the match position in the target sequence.
 
-- A *negative assert* of the form (! *subexpression*). Matches any sequence of characters in the target sequence that doesn't match the pattern between the delimiters, and doesn't change the match position in the target sequence.
+- A *negative assert* of the form `(?!`*subexpression*`)`. Matches any sequence of characters in the target sequence that doesn't match the pattern between the delimiters, and doesn't change the match position in the target sequence.
 
 - A *hexadecimal escape sequence* of the form `\xhh`. Matches a character in the target sequence that is represented by the two hexadecimal digits `hh`.
 
@@ -102,9 +102,9 @@ Examples:
 
 - `(?:a)` matches the target sequence `"a"`, but `"(?:a)\1"` is invalid because there's no capture group 1.
 
-- `(=a)a` matches the target sequence `"a"`. The positive assert matches the initial sequence `"a"` in the target sequence and the final `"a"` in the regular expression matches the initial sequence `"a"` in the target sequence.
+- `(?=a)a` matches the target sequence `"a"`. The positive assert matches the initial sequence `"a"` in the target sequence and the final `"a"` in the regular expression matches the initial sequence `"a"` in the target sequence.
 
-- `(!a)a` doesn't match the target sequence `"a"`.
+- `(?!a)a` doesn't match the target sequence `"a"`.
 
 - `a\b.` matches the target sequence `"a~"`, but doesn't match the target sequence `"ab"`.
 
@@ -379,7 +379,7 @@ Examples:
 
 A negative assert matches anything but its contents. It doesn't consume any characters in the target sequence.
 
-For example, `(!aa)(a*)` matches the target sequence `"a"` and associates capture group 1 with the subsequence `"a"`. It doesn't match the target sequence `"aa"` or the target sequence `"aaa"`.
+For example, `(?!aa)(a*)` matches the target sequence `"a"` and associates capture group 1 with the subsequence `"a"`. It doesn't match the target sequence `"aa"` or the target sequence `"aaa"`.
 
 ### Negative word boundary assert
 
@@ -445,15 +445,13 @@ A positive assert matches its contents, but doesn't consume any characters in th
 
 Examples:
 
-- `(=aa)(a*)` matches the target sequence `"aaaa"` and associates capture group 1 with the subsequence `"aaaa"`.
-
+- `(?=aa)(a*)` matches the target sequence `"aaaa"` and associates capture group 1 with the subsequence `"aaaa"`.
 - `(aa)(a*)` matches the target sequence `"aaaa"` and associates capture group 1 with the subsequence `"aa"` at the beginning of the target sequence and capture group 2 with the subsequence `"aa"` at the end of the target sequence.
-
-- `(=aa)(a)|(a)` matches the target sequence `"a"` and associates capture group 1 with an empty sequence (because the positive assert failed) and capture group 2 with the subsequence `"a"`. It also matches the target sequence `"aa"` and associates capture group 1 with the subsequence `"aa"` and capture group 2 with an empty sequence.
+- `(?=aa)(a)|(a)` matches the target sequence `"a"`. Capture group 1 is unmatched because the positive lookahead in the first alternative failed, and capture group 2 matches `"a"`. It also matches the target sequence `"aa"`: capture group 1 matches the first `"a"`, and capture group 2 is unmatched.
 
 ### Unicode escape sequence
 
-A unicode escape sequence is a backslash followed by the letter `'u'` followed by four hexadecimal digits (`0-9a-fA-F`). It matches a character in the target sequence that has the value that is specified by the four digits. For example, `\u0041` matches the target sequence `"a"` when ASCII character encoding is used.
+A Unicode escape sequence is a backslash followed by the letter `'u'` followed by four hexadecimal digits (`0-9a-fA-F`). It matches a character in the target sequence that has the value that is specified by the four digits. For example, `\u0041` matches the target sequence `"a"` when ASCII character encoding is used.
 
 ### Wildcard character
 

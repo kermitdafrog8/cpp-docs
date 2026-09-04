@@ -9,6 +9,8 @@ ms.custom: sfi-image-nochange
 
 Visual Studio C and C++ development isn't just for Windows anymore. This tutorial shows how to use Visual Studio for C++ cross platform development on Windows and Linux. It's based on CMake, so you don't have to create or generate Visual Studio projects. When you open a folder that contains a CMakeLists.txt file, Visual Studio configures the IntelliSense and build settings automatically. You can quickly start editing, building, and debugging your code locally on Windows. Then, switch your configuration to do the same on Linux, all from within Visual Studio.
 
+This tutorial uses *`CMakeSettings.json`* to configure an existing project. For new projects, use the recommended *`CMakePresets.json`* configuration file. For more information, see [Configure and build with CMake Presets](cmake-presets-vs.md).
+
 In this tutorial, you learn how to:
 
 > [!div class="checklist"]
@@ -47,7 +49,7 @@ In this tutorial, you learn how to:
     sudo ./cmake-3.11.18033000-MSVC_2-Linux-x86_64.sh --skip-license --prefix=/usr
     ```
 
-* Git for windows installed on your Windows machine.
+* Git for Windows installed on your Windows machine.
 * A GitHub account.
 
 ## Clone an open-source CMake project from GitHub

@@ -8,7 +8,6 @@ api_type: ["DLLExport"]
 topic_type: ["apiref"]
 f1_keywords: ["CRT_OPEN/_strtoui64", "CRT_OPEN/_strtoui64_l", "STDLIB/_strtoui64", "STDLIB/_strtoui64_l", "CORECRT_WSTDLIB/_wcstoui64", "CORECRT_WSTDLIB/_wcstoui64_l", "TCHAR/_tcstoui64", "TCHAR/_tcstoui64_l", "_strtoui64", "_strtoui64_l", "_wcstoui64", "_wcstoui64_l", "_tcstoui64", "_tcstoui64_l", "strtoui64", "strtoui64_l", "wcstoui64", "wcstoui64_l"]
 helpviewer_keywords: ["_strtoui64_l function", "_wcstoui64_l function", "string conversion, to integers", "wcstoui64_l function", "_strtoui64 function", "_wcstoui64 function", "wcstoui64 function", "strtoui64_l function", "strtoui64 function"]
-ms.assetid: 7fcb537e-4554-4ceb-a5b6-bc09244e72ef
 ---
 # `_strtoui64`, `_wcstoui64`, `_strtoui64_l`, `_wcstoui64_l`
 
@@ -57,7 +56,7 @@ Locale to use.
 
 ## Return value
 
-**`_strtoui64`** returns the value represented in the string *`strSource`*, except when the representation would cause an overflow, in which case it returns `_UI64_MAX`. **`_strtoui64`** returns 0 if no conversion can be performed.
+**`_strtoui64`** returns the value represented in the string *`strSource`*. If the representation causes an overflow, it returns `_UI64_MAX` and sets `errno` to `ERANGE`. **`_strtoui64`** returns 0 if no conversion can be performed.
 
 `_UI64_MAX` is defined in `LIMITS.H`.
 
